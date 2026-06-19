@@ -140,6 +140,9 @@ const SurpriseStickers = {
         } else if (sticker.id === 'surprise-teddy') {
           // Giant bear emoji bounce
           Animations.bearHugBounce();
+        } else if (sticker.id === 'surprise-star') {
+          // Sparkle rain
+          Animations.sparkleRain(6);
         }
         
         this.showModal(sticker);

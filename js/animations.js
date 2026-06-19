@@ -190,5 +190,94 @@ const Animations = {
     setTimeout(() => this.confettiBurst(8), 1500);
     setTimeout(() => this.fireworkShow(), 2000);
     setTimeout(() => this.confettiBurst(6), 3000);
+  },
+
+  // ---- Bear Hug Bounce ----
+  bearHugBounce() {
+    for (let i = 0; i < 5; i++) {
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.textContent = '🧸';
+        el.style.cssText = `
+          position: fixed;
+          left: ${Math.random() * 80 + 10}vw;
+          bottom: -100px;
+          font-size: ${Math.random() * 3 + 3}rem;
+          pointer-events: none;
+          z-index: 9999;
+          animation: bearBounceUp ${Math.random() * 1.5 + 1.5}s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        `;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 3000);
+      }, i * 250);
+    }
+  },
+
+  // ---- Photo Spam (Clone and throw all photos across the screen) ----
+  photoSpam() {
+    // Gather all real images on the page
+    const photos = Array.from(document.querySelectorAll('.polaroid img')).map(img => img.src);
+    if (photos.length === 0) return;
+
+    // We will spam 16 photos (repeating if needed)
+    const spamCount = 18;
+    for (let i = 0; i < spamCount; i++) {
+      setTimeout(() => {
+        const src = photos[i % photos.length];
+        
+        // Create a custom mini polaroid container to throw
+        const spamDiv = document.createElement('div');
+        spamDiv.className = 'spam-polaroid';
+        spamDiv.style.cssText = `
+          position: fixed;
+          width: 140px;
+          padding: 8px 8px 24px 8px;
+          background: white;
+          box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          left: ${Math.random() * 80 + 5}vw;
+          top: -200px;
+          z-index: 10000;
+          pointer-events: none;
+          transform: rotate(${(Math.random() - 0.5) * 80}deg);
+          animation: throwPhoto ${Math.random() * 2 + 2}s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+        `;
+
+        const img = document.createElement('img');
+        img.src = src;
+        img.style.cssText = `
+          width: 100%;
+          height: 100px;
+          object-fit: cover;
+          border-radius: 2px;
+          background: #faf8f5;
+        `;
+        spamDiv.appendChild(img);
+
+        // Add a cute caption
+        const caption = document.createElement('div');
+        caption.textContent = ['💕', '✨', '💖', '🎂', '🌸', '😘', '😊', '😍'][i % 8];
+        caption.style.cssText = `
+          font-family: var(--font-note, 'Indie Flower', cursive);
+          font-size: 0.8rem;
+          text-align: center;
+          margin-top: 6px;
+          color: #e85a71;
+        `;
+        spamDiv.appendChild(caption);
+
+        document.body.appendChild(spamDiv);
+        
+        // Soft float down and land somewhere
+        setTimeout(() => {
+          spamDiv.style.transition = 'opacity 1s ease';
+          spamDiv.style.opacity = '0.7';
+        }, 3500);
+
+        // Remove after a while so it doesn't slow down the browser
+        setTimeout(() => spamDiv.remove(), 6000);
+      }, i * 180);
+    }
   }
 };

@@ -130,6 +130,18 @@ const SurpriseStickers = {
         e.stopPropagation();
         SoundManager.playPop();
         Animations.sparkleAtCenter(3);
+        
+        // Add random variation to stickers
+        if (sticker.id === 'surprise-gift') {
+          Animations.floatHearts(8);
+        } else if (sticker.id === 'surprise-flower') {
+          // Trigger flower petals rain
+          Animations.sparkleRain(4);
+        } else if (sticker.id === 'surprise-teddy') {
+          // Giant bear emoji bounce
+          Animations.bearHugBounce();
+        }
+        
         this.showModal(sticker);
       });
     });
@@ -282,6 +294,9 @@ function initGiftBox() {
     setTimeout(() => {
       // Mega celebration
       Animations.celebrate();
+
+      // Spam all the polaroid photos on screen
+      Animations.photoSpam();
 
       // Show video or final message
       const videoContainer = document.getElementById('final-video-container');

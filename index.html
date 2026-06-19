@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Ruchii 🎂❤️</title>
+  <meta name="description" content="A magical interactive birthday card made with love for Ruchii — filled with memories, stickers, notes, and surprises!" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Caveat:wght@400;600;700&family=Indie+Flower&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+
+  <style>
+    /* ── Inline extras & photo placeholders ── */
+
+    /* Photo placeholders (shown when real image is absent) */
+    .photo-placeholder {
+      width: 100%;
+      height: 160px;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-placeholder span.ph-label {
+      font-family: var(--font-note);
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 1px;
+    }
+    .ph-1 { background: linear-gradient(135deg,#FFB3C6,#FF80AB); }
+    .ph-2 { background: linear-gradient(135deg,#FFCC80,#FF8A65); }
+    .ph-3 { background: linear-gradient(135deg,#CE93D8,#AB47BC); }
+    .ph-4 { background: linear-gradient(135deg,#80DEEA,#26C6DA); }
+    .ph-5 { background: linear-gradient(135deg,#A5D6A7,#43A047); }
+    .ph-6 { background: linear-gradient(135deg,#F48FB1,#E91E63); }
+    .ph-childhood {
+      background: linear-gradient(135deg,#FFECB3,#FFD54F);
+      height: 200px;
+    }
+
+    /* Show real image when it exists (add it to assets/images) */
+    .polaroid img.real-photo { display: block; }
+    .polaroid img.real-photo + .photo-placeholder { display: none; }
+
+    /* Cover background decoration */
+    .cover-bg-deco {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255,200,200,0.2)  0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* Sparkle stars on cover */
+    .cover-star {
+      position: absolute;
+      font-size: 1.2rem;
+      animation: starTwinkle 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* Washi tape strips */
+    .tape-h {
+      position: absolute;
+      height: 22px;
+      border-radius: 3px;
+      opacity: 0.8;
+    }
+    .tape-v {
+      position: absolute;
+      width: 22px;
+      border-radius: 3px;
+      opacity: 0.8;
+    }
+
+    /* Letter lines */
+    .letter-lines {
+      background-image: repeating-linear-gradient(
+        transparent, transparent 31px,
+        rgba(139, 90, 60, 0.15) 31px, rgba(139,90,60,0.15) 32px
+      );
+    }
+
+    /* Page 9 jar area nice look */
+    .jar-svg-wrap {
+      position: relative;
+      width: min(200px, 55vw);
+      margin: 0 auto;
+      cursor: pointer;
+    }
+
+    /* SVG jar */
+    .jar-svg {
+      width: 100%;
+      filter: drop-shadow(0 12px 30px rgba(100,160,255,0.3));
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .jar-svg-wrap:hover .jar-svg {
+      transform: scale(1.06);
+      filter: drop-shadow(0 18px 45px rgba(100,160,255,0.5));
+    }
+
+    /* Page 2 flower deco */
+    .flower-row {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      font-size: 1.4rem;
+      margin: 4px 0;
+      flex-wrap: wrap;
+    }
+
+    /* Memory card accent colors */
+    .mc-pink  { border-top-color: #FF6B9D !important; }
+    .mc-blue  { border-top-color: #4FC3F7 !important; }
+    .mc-gold  { border-top-color: #FFD700 !important; }
+    .mc-green { border-top-color: #66BB6A !important; }
+
+    /* Hidden sticker tooltip ring */
+    .surprise-sticker::after {
+      content: 'click me!';
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-note);
+      font-size: 0.58rem;
+      color: rgba(180,120,120,0.7);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .surprise-sticker:hover::after { opacity: 1; }
+
+    /* Final page decorative hearts */
+    .heart-row {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      font-size: 1.5rem;
+      flex-wrap: wrap;
+      animation: gentleFloat 3s ease-in-out infinite;
+    }
+
+    /* Responsive mobile tweak */
+    @media (max-width: 480px) {
+      .scrapbook-grid { grid-template-columns: 1fr !important; }
+      .memories-grid  { grid-template-columns: 1fr !important; }
+      .reasons-grid   { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════════════════╗ -->
+<!-- ║            LOADING SCREEN                   ║ -->
+<!-- ╚══════════════════════════════════════════════╝ -->
+<div id="loading-screen">
+  <div class="loading-envelope"></div>
+  <p class="loading-text">✨ Preparing something magical… ✨</p>
+</div>
+
+<!-- ╔══════════════════════════════════════════════╗ -->
+<!-- ║         GLITTER CANVAS (overlay)            ║ -->
+<!-- ╚══════════════════════════════════════════════╝ -->
+<canvas id="glitter-canvas"></canvas>
+
+<!-- ╔══════════════════════════════════════════════╗ -->
+<!-- ║          MUSIC TOGGLE BUTTON                ║ -->
+<!-- ╚══════════════════════════════════════════════╝ -->
+<button id="music-toggle">🎵 Music On</button>
+
+<!-- ╔══════════════════════════════════════════════╗ -->
+<!-- ║       CARD INNER REVEAL ANIMATION           ║ -->
+<!-- ╚══════════════════════════════════════════════╝ -->
+<div id="card-inner-reveal">
+  <div class="reveal-title">Happy Birthday<br>Ruchii! ❤️</div>
+  <div class="reveal-subtitle">A card made with love, just for you 🎀</div>
+  <div class="reveal-emojis">🎂 🎁 🌸 🎊 💖</div>
+  <div class="reveal-continue">✨ Tap anywhere to open your card ✨</div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════╗ -->
+<!-- ║              MAIN CARD WORLD                ║ -->
+<!-- ╚══════════════════════════════════════════════╝ -->
+<div id="card-world">
+  <div id="card-wrapper">
+
+    <!-- ── CLOSED CARD COVER ── -->
+    <div id="card-closed">
+      <div class="cover-bg-deco"></div>
+
+      <!-- Floating balloons -->
+      <div class="cover-balloons">
+        <span class="balloon">🎈</span>
+        <span class="balloon">🎀</span>
+        <span class="balloon">🎈</span>
+        <span class="balloon">💜</span>
+        <span class="balloon">🎈</span>
+        <span class="balloon">🩷</span>
+      </div>
+
+      <!-- Twinkling stars -->
+      <span class="cover-star" style="top:12%;left:8%;animation-delay:0s">✨</span>
+      <span class="cover-star" style="top:18%;right:10%;animation-delay:0.5s">⭐</span>
+      <span class="cover-star" style="bottom:25%;left:12%;animation-delay:1s">💫</span>
+      <span class="cover-star" style="top:35%;left:5%;animation-delay:0.8s">✨</span>
+      <span class="cover-star" style="bottom:30%;right:8%;animation-delay:0.3s">⭐</span>
+      <span class="cover-star" style="top:55%;right:5%;animation-delay:1.2s">✨</span>
+
+      <div class="card-cover-content">
+        <div class="card-cover-title">🎂 Happy Birthday! 🎂</div>
+        <div class="card-cover-subtitle">A card made with ❤️ just for you</div>
+        <div class="tap-hint">✨ Tap to open your card ✨</div>
+      </div>
+    </div><!-- /#card-closed -->
+
+    <!-- ── OPEN CARD ── -->
+    <div id="card-open">
+
+      <!-- Page navigation -->
+      <div id="page-nav" style="display:none;">
+        <button class="nav-btn" id="prev-btn" disabled>◀</button>
+        <span id="page-indicator">1 / 11</span>
+        <button class="nav-btn" id="next-btn">▶</button>
+      </div>
+
+      <div class="page-container">
+
+        <!-- ════════════════════════════════════════════
+             PAGE 1 — Birthday Cover
+        ════════════════════════════════════════════ -->
+        <div class="card-page" id="page-1">
+          <div class="page-scroll" style="padding:0; overflow:hidden; height:100%;">
+            <!-- Birthday cover image or gradient -->
+            <div style="width:100%; height:52%; background:linear-gradient(160deg,#FFB3C6 0%,#FF80AB 50%,#CE93D8 100%); position:relative; overflow:hidden; flex-shrink:0;">
+              <!-- Try real image first -->
+              <img src="assets/images/birthday_cover.png"
+                   alt="Birthday celebration"
+                   style="width:100%;height:100%;object-fit:cover;display:block;"
+                   onerror="this.style.display='none'" />
+
+              <!-- Overlay deco on top of image -->
+              <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(255,240,247,1) 100%);pointer-events:none;"></div>
+
+              <!-- Floating emoji over image -->
+              <span style="position:absolute;top:10px;left:10px;font-size:2rem;animation:stickerBounce 2s ease-in-out infinite;">🎈</span>
+              <span style="position:absolute;top:10px;right:10px;font-size:2rem;animation:stickerBounce 2.2s ease-in-out 0.3s infinite;">🎀</span>
+              <span style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:2.5rem;animation:stickerBounce 1.8s ease-in-out 0.1s infinite;">🎂</span>
+            </div>
+
+            <!-- Content below image -->
+            <div class="p1-content fade-in-up" style="padding:16px 24px; text-align:center;">
+              <div class="p1-title">Happy Birthday<br>Ruchii! 🎉</div>
+              <div class="p1-subtitle">Wishing you a day as bright as your smile ☀️</div>
+              <div class="p1-stickers" style="margin-top:12px;">
+                <span>🎂</span><span>🌸</span><span>🎁</span><span>💖</span><span>🦋</span><span>⭐</span>
+              </div>
+
+              <!-- Washi tape deco -->
+              <div class="tape-h washi-tape yellow" style="width:80px;top:-8px;left:20px;transform:rotate(-4deg);"></div>
+              <div class="tape-h washi-tape mint"   style="width:60px;bottom:-6px;right:30px;transform:rotate(3deg);"></div>
+
+              <!-- Hidden surprise sticker -->
+              <span class="surprise-sticker" id="surprise-star"
+                    style="bottom:8px;left:14px;animation-delay:0.5s;position:absolute;">⭐</span>
+            </div>
+          </div>
+        </div><!-- /#page-1 -->
+
+
+        <!-- ════════════════════════════════════════════
+             PAGE 2 — Beginning of Her Journey
+        ════════════════════════════════════════════ -->
+        <div class="card-page" id="page-2">
+          <div class="page-scroll">
+            <div class="p2-inner">
+              <div class="p2-heading fade-in-up-delay-1 fade-in-up">🌸 Where It All Began 🌸</div>
+
+              <div class="flower-row">🌺🌸🌼🌻🌷🌺🌸🌼</div>
+
+              <!-- Childhood polaroid -->
+              <div class="p2-polaroid-wrap fade-in-up-delay-2 fade-in-up">
+                <div class="p2-tape"></div>
+                <div class="polaroid" style="transform: rotate(-3deg);">
+                  <!-- Real photo slot -->
+                   <img src="assets/images/WhatsApp Image 2026-06-18 at 1.55.33 PM.jpeg"
+                        alt="Childhood memory"
+                        style="width:100%;height:200px;object-fit:contain;background:#faf8f5;object-position:center;border-radius:2px;display:block;"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                  <!-- Placeholder -->
+                  <div class="photo-placeholder ph-childhood" style="display:none;">
+                    <span>🌟</span>
+                    <span>👶</span>
+                    <span class="ph-label">ADD YOUR PHOTO HERE</span>
+                  </div>
+                   <div class="polaroid-caption">First Trip & First Handhold 🤝❤️</div>
+                </div>
+              </div>
+
+              <!-- Pressed flowers decoration -->
+              <img src="assets/images/pressed_flowers.png"
+                   alt="Pressed flowers"
+                   class="p2-flowers fade-in-up-delay-3 fade-in-up"
+                   style="max-width:240px;"
+                   onerror="this.style.display='none'" />
+
+              <div class="p2-caption fade-in-up-delay-4 fade-in-up">
+                From the very first moment, you were destined to brighten this world 🌟<br>
+                <em>Every story has a magical beginning — yours is no different.</em>
+              </div>
+
+              <div class="p2-year-badge fade-in-up-delay-5 fade-in-up">🌸 The Journey Begins 🌸</div>
+
+              <!-- Hidden surprise sticker -->
+              <span class="surprise-sticker" id="surprise-flower"
+                    style="top:12px;right:14px;position:absolute;animation-delay:1s;">🌸</span>
+            </div>
+          </div>
+        </div><!-- /#page-2 -->
+
+
+        <!-- ════════════════════════════════════════════
+             PAGE 3 — Memory Scrapbook I
+        ════════════════════════════════════════════ -->
+        <div class="card-page scrapbook-page" id="page-3">
+          <!-- Washi tape corner pieces -->
+          <div class="washi-tape yellow tape-h" style="width:90px;top:0;left:0;"></div>
+          <div class="washi-tape pink  tape-h" style="width:70px;top:0;right:30px;transform:rotate(1deg);"></div>
+          <div class="washi-tape mint  tape-v" style="height:80px;right:0;top:40px;"></div>
+
+          <div class="page-scroll">
+            <div style="padding:10px 16px;">
+              <div class="page-title">📸 Precious Memories ✨</div>
+
+              <div class="scrapbook-grid">
+                <!-- Photo 1 -->
+                <div class="scrapbook-item" style="--rot:-4deg;--note-rot:-2deg;">
+                  <div class="polaroid">
+                      <img src="assets/images/WhatsApp Image 2026-06-16 at 10.24.38 PM.jpeg" alt="Memory 1"
+                          style="width:100%;height:160px;object-fit:contain;background:#faf8f5;border-radius:2px;display:block;transform:rotate(90deg);"
+                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                    <div class="photo-placeholder ph-1" style="display:none;">
+                      <span>🌟</span><span class="ph-label">YOUR PHOTO</span>
+                    </div>
+                     <div class="polaroid-caption">Best friends forever 💕</div>
+                  </div>
+                    <div class="sticky-note yellow" style="--note-rot:-2deg;">
+                      ❤️ This moment right here… pure gold! We were laughing so hard 😂
+                    </div>
+                </div>
+
+                <!-- Photo 2 -->
+                <div class="scrapbook-item" style="--rot:3deg;--note-rot:2deg;">
+                  <div class="polaroid">
+                     <img src="assets/images/WhatsApp Image 2026-06-16 at 10.24.38 PM (2).jpeg" alt="Memory 2"
+                          style="width:100%;height:160px;object-fit:contain;background:#faf8f5;object-position:center;border-radius:2px;display:block;"
+                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                    <div class="photo-placeholder ph-2" style="display:none;">
+                      <span>🎉</span><span class="ph-label">YOUR PHOTO</span>
+                    </div>
+                    <div class="polaroid-caption">Birthday vibes only! 🎂</div>
+                  </div>
+                  <div class="sticky-note pink" style="--note-rot:2deg;">
+                    🎈 The best celebrations happen with the best people!
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floating stickers -->
+              <div style="text-align:center; margin-top:12px; font-size:1.6rem; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+                <span class="deco-sticker" style="animation-delay:0s">💖</span>
+                <span class="deco-sticker" style="animation-delay:0.3s">⭐</span>
+                <span class="deco-sticker" style="animation-delay:0.6s">🦋</span>
+                <span class="deco-sticker" style="animation-delay:0.9s">🌸</span>
+                <span class="deco-sticker" style="animation-delay:1.2s">🎀</span>
+              </div>
+            </div>
+          </div>
+        </div><!-- /#page-3 -->
+
+
+        <!-- ════════════════════════════════════════════
+             PAGE 4 — Memory Scrapbook II
+        ════════════════════════════════════════════ -->
+        <div class="card-page scrapbook-page" id="page-4">
+          <div class="washi-tape lavender tape-h" style="width:100px;top:0;left:50px;transform:rotate(-1deg);"></div>
+
+          <div class="page-scroll">
+            <div style="padding:10px 16px;">
+              <div class="page-title">🌸 More Beautiful Moments 🌸</div>
+
+              <div class="scrapbook-grid">
+                <!-- Photo 3 -->
+                <div class="scrapbook-item" style="--rot:5deg;--note-rot:3deg;">
+                  <div class="polaroid">
+                     <img src="assets/images/WhatsApp Image 2026-06-16 at 10.24.39 PM.jpeg" alt="Memory 3"
+                          style="width:100%;height:160px;object-fit:contain;background:#faf8f5;object-position:center;border-radius:2px;display:block;"
+                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                    <div class="photo-placeholder ph-3" style="display:none;">
+                      <span>🌺</span><span class="ph-label">YOUR PHOTO</span>
+                    </div>
+                    <div class="polaroid-caption">Peaceful & beautiful 🌸</div>
+                  </div>
+                  <div class="sticky-note blue" style="--note-rot:3deg;">
+                    🌸 You have this magical ability to make every moment feel peaceful. 
+                  </div>
+                </div>
+
+                <!-- Photo 4 -->
+                <div class="scrapbook-item" style="--rot:-3deg;--note-rot:-1deg;">
+                  <div class="polaroid">
+                     <img src="assets/images/WhatsApp Image 2026-06-16 at 10.24.39 PM (1).jpeg" alt="Memory 4"
+                          style="width:100%;height:160px;object-fit:contain;background:#faf8f5;border-radius:2px;display:block;"
+                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                    <div class="photo-placeholder ph-4" style="display:none;">
+                      <span>☀️</span><span class="ph-label">YOUR PHOTO</span>
+                    </div>
+                    <div class="polaroid-caption">Happy days together ☀️</div>
+                  </div>
+                  <div class="sticky-note green" style="--note-rot:-1deg;">
+                    ✨ Adventures are always better with you around! Let's make a million more!
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mini sticker row -->
+              <div style="text-align:center; margin-top:14px; font-size:1.4rem; display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
+                <span class="deco-sticker" style="animation-delay:0.1s">🧸</span>
+                <span class="deco-sticker" style="animation-delay:0.4s">💝</span>
+                <span class="deco-sticker" style="animation-delay:0.7s">🍀</span>
+                <span class="deco-sticker" style="animation-delay:1s">🌈</span>
+                <span class="deco-sticker" style="animation-delay:1.3s">💫</span>
+              </div>
+
+              <!-- Hidden teddy surprise -->
+              <span class="surprise-sticker" id="surprise-teddy"
+                    style="bottom:60px;right:16px;position:absolute;animation-delay:0.7s;">🧸</span>
+            </div>
+          </div>
+        </div><!-- /#page-4 -->
+
+
+        <!-- ════════════════════════════════════════════
+             PAGE 5 — Memory Scrapbook III
+        ════════════════════════════════════════════ -->
+        <div class="card-page scrapbook-page" id="page-5">
+          <div class="washi-tape pink tape-h" style="width:110px;bottom:60px;left:0;transform:rotate(2deg);"></div>
+
+          <div class="page-scroll">
+            <div style="padding:10px 16px;">
+              <div class="page-title">💖 Always in My Heart 💖</div>
+
+              <!-- Single wide polaroid -->
+              <div class="polaroid" style="transform:rotate(-1deg); max-width:340px; margin:10px auto;">
+                <img src="assets/images/WhatsApp Image 2026-06-16 at 10.24.40 PM.jpeg" alt="Special memory"
+                      style="width:100%;height:200px;object-fit:contain;object-position:top;border-radius:2px;display:block;"
+                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                <div class="photo-placeholder ph-5" style="display:none;height:180px;">
+                  <span>💕</span><span class="ph-label">YOUR FAVORITE PHOTO HERE</span>
+                </div>
+                <div class="polaroid-caption" style="font-size:0.85rem;">That smile that makes everything better 💕</div>
+              </div>
+
+              <!-- Extra notes cluster -->
+              <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+                <div class="sticky-note peach" style="transform:rotate(-3deg); width:min(160px, 42vw);">
+                  🐱 Your laugh is literally the most contagious thing. I dare anyone to stay sad around you!
+                </div>
+                <div class="sticky-note lavender" style="transform:rotate(2deg); width:min(160px, 42vw);">
+                  🦋 You make every room feel warmer just by walking into it 🌟
+                </div>
+              </div>
+
+              <div style="text-align:center; margin-top:16px; font-size:1.6rem; display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
+                <span class="deco-sticker" style="animation-delay:0.2s">🐱</span>
+                <span class="deco-sticker" style="animation-delay:0.5s">🌙</span>
+                <span class="deco-sticker" style="animation-delay:0.8s">💜</span>
+                <span class="deco-sticker" style="animation-delay:1.1s">🦋</span>
+              </div>
+            </div>
+          </div>
+        </div><!-- /#page-5 -->
+
+
+        <!-- ════════════════════════════════════════════
+             PAGE 6 — Memory Scrapbook IV
+        ════════════════════════════════════════════ -->
+        <div class="card-page scrapbook-page" id="page-6">
+          <div class="washi-tape yellow tape-h" style="width:90px;top:0;right:0;transform:rotate(-2deg);"></div>
+          <div class="washi-tape mint   tape-h" style="width:80px;bottom:55px;left:20px;transform:rotate(3deg);"></div>
+
+          <div class="page-scroll">
+            <div style="padding:10px 16px;">
+              <div class="page-title">⭐ Unforgettable Times ⭐</div>
+
+              <div class="scrapbook-grid">
+                <!-- Photo 5 -->
+                <div class="scrapbook-item" style="--rot:-6deg;--note-rot:-2deg;">
+                  <div class="polaroid">
+                     <img src="assets/images/WhatsApp Image 2026-06-16 at 10.24.40 PM (1).jpeg" alt="Memory 5"
+                          style="width:100%;height:160px;object-fit:cover;border-radius:2px;display:block;"
+                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                    <div class="photo-placeholder ph-6" style="display:none;">
+                      <span>🌟</span><span class="ph-label">YOUR PHOTO</span>
+                    </div>
+                    <div class="polaroid-caption">The best of times 🌟</div>
+                  </div>
+                  <div class="sticky-note yellow" style="--note-rot:-2deg;">
+                    🎂 Every moment with you is a celebration!
+                  </div>
+                </div>
+
+                <!-- Photo 6 -->
+                <div class="scrapbook-item" style="--rot:4deg;--note-rot:2deg;">
+                  <div class="polaroid">
+                      <img src="assets/images/WhatsApp Image 2026-06-16 at 10.24.41 PM.jpeg" alt="Memory 6"
+                          style="width:100%;height:160px;object-fit:cover;border-radius:2px;display:block;"
+                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                    <div class="photo-placeholder ph-1" style="display:none;">
+                      <span>💖</span><span class="ph-label">YOUR PHOTO</span>
+                    </div>
+                    <div class="polaroid-caption">Lost in the beautiful moment 🌺</div>
+                  </div>
+                  <div class="sticky-note pink" style="--note-rot:2deg;">
+                    🌺 Some moments are too precious for words. This was one of them.
+                  </div>
+                </div>
+              </div>
+
+              <div style="text-align:center; margin-top:14px; font-size:1.4rem; display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
+                <span class="deco-sticker" style="animation-delay:0.15s">🎵</span>
+                <span class="deco-sticker" style="animation-delay:0.45s">💃</span>
+                <span class="deco-sticker" style="animation-delay:0.75s">🌟</span>
+                <span class="deco-sticker" style="animation-delay:1.05s">🎊</span>
+              </div>
+            </div>
+          </div>
+        </div><!-- /#page-6 -->
+
+
+        <!-- ════════════════════════════════════════════
+             PAGE 7 — Special Moments (Mini Letters)
+        ════════════════════════════════════════════ -->
+        <div class="card-page" id="page-7" style="background:linear-gradient(160deg,#FFF0E6,#FFE4D6);">
+          <div class="page-scroll">
+            <div class="p7-inner">
+              <div class="page-title">💌 Special Moments 💌</div>
+              <p style="font-family:var(--font-note);font-size:0.85rem;color:#aaa;text-align:center;margin-bottom:4px;">Tap a card to reveal a memory 💕</p>
+
+              <div class="memories-grid">
+
+                <!-- Memory Card 1 -->
+                <div class="memory-card mc-pink">
+                  <div class="push-pin red"></div>
+                  <div class="memory-card-front">
+                    <span class="mc-emoji">🌧️</span>
+                    <span class="mc-hint">Tap to open</span>
+                  </div>
+                  <div class="memory-card-inner">
+                     🌧️ <strong>The First Time I Saw You</strong><br><br>
+                     It was raining, and you were sitting at the back of the classroom. I wanted to invite you to join us, but you were busy talking on the phone. That very first glimpse of you is etched in my mind! 💖
+                  </div>
+                </div>
+
+                <!-- Memory Card 2 -->
+                <div class="memory-card mc-blue">
+                  <div class="push-pin blue"></div>
+                  <div class="memory-card-front">
+                    <span class="mc-emoji">🚶‍♀️</span>
+                    <span class="mc-hint">Tap to open</span>
+                  </div>
+                  <div class="memory-card-inner">
+                    🚶‍♀️ <strong>Our First Walk Together</strong><br><br>
+                    Remember our first walk? We didn't have any vehicle to travel, but even though we were just friends, we walked side by side holding hands, teasing each other, and laughing the whole way. 🌺
+                  </div>
+                </div>
+
+                <!-- Memory Card 3 -->
+                <div class="memory-card mc-gold">
+                  <div class="push-pin yellow"></div>
+                  <div class="memory-card-front">
+                    <span class="mc-emoji">💬</span>
+                    <span class="mc-hint">Tap to open</span>
+                  </div>
+                  <div class="memory-card-inner">
+                     💬 <strong>The First "Hi"!</strong><br><br>
+                     The very first time I said "Hi" to you, and you replied back... Oh my god, my heart was racing! I honestly thought you would ignore me, but you didn't. It was the start of something so special. 🥹
+                  </div>
+                </div>
+
+                <!-- Memory Card 4 -->
+                <div class="memory-card mc-green">
+                  <div class="push-pin green"></div>
+                  <div class="memory-card-front">
+                    <span class="mc-emoji">🌙</span>
+                    <span class="mc-hint">Tap to open</span>
+                  </div>
+                  <div class="memory-card-inner">
+                    🌙 <strong>Late night talks!</strong><br><br>
+                    Those late-night conversations where we shared our deepest thoughts and wildest dreams — you always made me feel heard and understood. 💕
+                  </div>
+                </div>
+
+              </div><!-- /.memories-grid -->
+
+              <!-- Hidden gift sticker -->
+              <span class="surprise-sticker" id="surprise-gift"
+                    style="bottom:65px;left:14px;position:absolute;animation-delay:0.3s;">🎁</span>
+            </div>
+          </div>
+        </div><!-- /#page-7 -->
+
+
+        <!-- ════════════════════════════════════════════
+             PAGE 8 — Reasons You're Amazing
+        ════════════════════════════════════════════ -->
+        <div class="card-page" id="page-8">
+          <div class="page-scroll">
+            <div class="p8-inner">
+              <div class="page-title">💛 Reasons You're Amazing 💛</div>
+
+              <div class="reasons-grid">
+
+                <div class="sticky-note yellow" style="transform:rotate(-3deg);">
+                  <span class="reason-emoji">😊</span>
+                  Your smile brightens every single room you walk into. It's genuinely contagious!
+                </div>
+
+                <div class="sticky-note pink" style="transform:rotate(2deg);">
+                  <span class="reason-emoji">❤️</span>
+                  Your kindness is the kind that changes people's lives. Quietly, but deeply.
+                </div>
+
+                <div class="sticky-note blue" style="transform:rotate(-1.5deg);">
+                  <span class="reason-emoji">✨</span>
+                  You make life SO much more fun. Everything is better with you in it!
+                </div>
+
+                <div class="sticky-note green" style="transform:rotate(3deg);">
+                  <span class="reason-emoji">🌸</span>
+                  You bring a certain warmth that even the coldest days can't stand against.
+                </div>
+
+                <div class="sticky-note lavender" style="transform:rotate(-2deg);">
+                  <span class="reason-emoji">🦋</span>
+                  You see beauty in the small things — and that makes you truly special.
+                </div>
+
+                <div class="sticky-note peach" style="transform:rotate(1.5deg);">
+                  <span class="reason-emoji">💪</span>
+                  You're stronger than you know. Your resilience is an inspiration every day.
+                </div>
+
+                <div class="sticky-note yellow" style="transform:rotate(-1deg);">
+                  <span class="reason-emoji">🌟</span>
+                  Your creativity and passion for things you love is absolutely magnetic!
+                </div>
+
+                <div class="sticky-note pink" style="transform:rotate(2.5deg);">
+                  <span class="reason-emoji">🤗</span>
+                  Your hugs are literally healing. The world needs more of Ruchii energy! 💖
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div><!-- /#page-8 -->
+
+
+        <!-- ════════════════════════════════════════════
+             PAGE 9 — Memory Jar
+        ════════════════════════════════════════════ -->
+        <div class="card-page" id="page-9">
+          <div class="page-scroll">
+            <div class="p9-inner">
+              <div class="page-title">🫙 Memory Jar 🫙</div>
+              <p style="font-family:var(--font-hand);font-size:1rem;color:#888;text-align:center;">
+                This jar holds every precious memory — tap it to release them! ✨
+              </p>
+
+              <!-- SVG Memory Jar -->
+              <div class="jar-svg-wrap" id="jar-container">
+                <svg class="jar-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Cork lid -->
+                  <rect x="60" y="20" width="80" height="22" rx="6"
+                        fill="url(#corkGrad)" stroke="#C8952A" stroke-width="1.5"/>
+                  <!-- Lid band -->
+                  <rect x="55" y="38" width="90" height="10" rx="3"
+                        fill="#A0C4FF" opacity="0.6"/>
+                  <!-- Jar body -->
+                  <path d="M45 52 Q40 52 38 60 L30 210 Q28 230 40 235 H160 Q172 230 170 210 L162 60 Q160 52 155 52 Z"
+                        fill="url(#glassGrad)" stroke="#A0C4FF" stroke-width="2"/>
+                  <!-- Jar shine left -->
+                  <path d="M55 65 Q52 80 53 130 Q54 160 58 180"
+                        stroke="rgba(255,255,255,0.7)" stroke-width="4" stroke-linecap="round"/>
+                  <!-- Jar shine right small -->
+                  <path d="M68 62 Q66 75 67 100"
+                        stroke="rgba(255,255,255,0.4)" stroke-width="2.5" stroke-linecap="round"/>
+                  <!-- Notes inside jar -->
+                  <rect x="70" y="100" width="28" height="18" rx="3" fill="#FEFBA7" transform="rotate(-8 70 100)" opacity="0.9"/>
+                  <rect x="108" y="115" width="28" height="18" rx="3" fill="#FFD6E7" transform="rotate(5 108 115)" opacity="0.9"/>
+                  <rect x="80" y="140" width="28" height="18" rx="3" fill="#D4EDFF" transform="rotate(-3 80 140)" opacity="0.9"/>
+                  <rect x="115" y="158" width="24" height="16" rx="3" fill="#EDD4FF" transform="rotate(7 115 158)" opacity="0.9"/>
+                  <rect x="65" y="170" width="26" height="16" rx="3" fill="#D4FFDC" transform="rotate(-5 65 170)" opacity="0.9"/>
+                  <!-- Bottom base -->
+                  <ellipse cx="100" cy="230" rx="60" ry="8" fill="rgba(160,196,255,0.3)"/>
+                  <!-- Flower deco on jar -->
+                  <text x="88" y="96" font-size="14" opacity="0.85">🌸</text>
+                  <!-- Defs -->
+                  <defs>
+                    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%"   stop-color="#C8E6FF" stop-opacity="0.6"/>
+                      <stop offset="50%"  stop-color="#EAF4FF" stop-opacity="0.85"/>
+                      <stop offset="100%" stop-color="#C8E6FF" stop-opacity="0.5"/>
+                    </linearGradient>
+                    <linearGradient id="corkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%"   stop-color="#F5C97A"/>
+                      <stop offset="100%" stop-color="#C8952A"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+
+                <div class="jar-glow"></div>
+              </div>
+
+              <div class="jar-tap-hint">✨ Tap the jar to release the memories ✨</div>
+
+              <!-- Notes appear here -->
+              <div id="jar-notes-area" style="min-height:80px;width:100%;display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;padding:8px;gap:6px;"></div>
+
+              <p class="p9-caption">Every memory is a treasure — and you are the greatest treasure of all 💕</p>
+            </div>
+          </div>
+        </div><!-- /#page-9 -->
+
+
+        <!-- ════════════════════════════════════════════
+             PAGE 10 — Handwritten Letter
+        ════════════════════════════════════════════ -->
+        <div class="card-page" id="page-10" style="background:#FFF8F0;">
+          <div class="page-scroll">
+            <div class="p10-inner">
+              <div class="page-title">💌 A Letter for You 💌</div>
+
+              <div class="letter-paper letter-lines">
+                <div class="letter-heart-deco">💕</div>
+
+                <div class="letter-content">
+                  <div class="letter-greeting">My dearest Ruchii,</div>
+
+                  <div class="letter-body" id="letter-body"
+                       data-text="Where do I even begin? It's finally your birthday, Ruchiii! I love you so much, happiest birthday to you! 
+
+Tula mahit ahe, from the very first day, I had my eye on you. Mala first day pasun tula friend banvaycha hota. I don't know why, but aatun khup ichha hot hoti. Starting la asa watla navta ki friend banu, pn universe decided to play, and he played too much! He forced me to make the first move. It's not just a setting or anything... it feels like we were genuinely made for this. 
+
+Mii tuz sagl kahi maaf karu shakto, mahit nahi ka... Ruchii, you are too special. Maza eyes ne pahshil tr, you are a goddess. 💋 Thank you for being born and coming into my life. I am really, really glad to have met you, Ruchii. Thank you so much, happiest birthday! Mii khup happy theven tula. 🤭 
+
+Pah tuu, get happy, khup happy ho! Radu nako ata, bus paht rah... more surprises are coming! Tuzya badal tr khup kahi lihu shakto mii, purn raat pan kami padun jail. 💓🎈 
+
+Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!">With love being written just for you… ✍️</div>
+
+                  <div class="letter-sign">— Your person 💖</div>
+                </div>
+
+                <!-- Decorative elements on letter -->
+                <div class="wax-seal">🌸</div>
+
+                <img src="assets/images/pressed_flowers.png"
+                     alt="Flowers"
+                     class="letter-flowers-deco"
+                     style="width:130px;bottom:-10px;right:-10px;"
+                     onerror="this.style.display='none'" />
+              </div>
+
+              <!-- Flower row below letter -->
+              <div class="flower-row" style="margin-top:12px;">
+                🌺🌸🌼🌻🌷🌺
+              </div>
+            </div>
+          </div>
+        </div><!-- /#page-10 -->
+
+
+        <!-- ════════════════════════════════════════════
+             FINAL PAGE — The Gift
+        ════════════════════════════════════════════ -->
+        <div class="card-page" id="page-final">
+          <div class="page-scroll">
+            <div class="final-inner">
+              <div class="final-title">🎁 One Last Surprise 🎁</div>
+
+              <div class="heart-row">
+                <span>💖</span><span>🌸</span><span>⭐</span><span>💖</span><span>🌸</span>
+              </div>
+
+              <!-- Gift Box -->
+              <div class="gift-box-container" style="margin:12px auto;">
+                <img id="gift-box-img"
+                     src="assets/images/gift_box.png"
+                     alt="Birthday gift"
+                     style="width:min(180px, 50vw); display:block; margin:0 auto;"
+                     onerror="this.src=''; this.outerHTML='<div style=\'font-size:8rem; text-align:center; animation:giftPulse 2s ease-in-out infinite; display:block;\'>🎁</div>'" />
+              </div>
+
+              <button class="gift-btn" id="gift-btn">
+                Open Your Birthday Gift 🎁
+              </button>
+
+              <!-- VIDEO EMBED — replace YOUR_VIDEO_ID with actual YouTube video ID -->
+              <div id="final-video-container" class="final-video-container">
+                <iframe
+                  id="birthday-video"
+                  src="about:blank"
+                  data-src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1"
+                  title="Birthday video"
+                  allow="autoplay; encrypted-media"
+                  allowfullscreen>
+                </iframe>
+              </div>
+
+              <!-- Final quote -->
+              <div id="final-quote" class="final-quote">
+                <span style="font-size:1.5rem;">🌸✨💖✨🌸</span><br><br>
+                Every page in this card holds a memory,<br>
+                every memory holds a smile,<br>
+                and every smile reminds me<br>
+                how <strong>special</strong> you are.<br><br>
+                <em>Happy Birthday, Ruchii!</em> 🎂❤️<br><br>
+                <span style="font-size:1.4rem;">🎉🎈🎁🎊🎀</span>
+              </div>
+
+            </div>
+          </div>
+        </div><!-- /#page-final -->
+
+      </div><!-- /.page-container -->
+    </div><!-- /#card-open -->
+
+  </div><!-- /#card-wrapper -->
+</div><!-- /#card-world -->
+
+
+<!-- ╔══════════════════════════════════════════════╗ -->
+<!-- ║           SURPRISE MODAL                    ║ -->
+<!-- ╚══════════════════════════════════════════════╝ -->
+<div id="modal-overlay">
+  <div class="modal-card">
+    <span class="modal-emoji" id="modal-emoji">🎁</span>
+    <div class="modal-title" id="modal-title">A surprise for you!</div>
+    <p class="modal-text" id="modal-text">Something lovely is hiding here...</p>
+    <button class="modal-close" id="modal-close-btn">Close ✕</button>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════╗ -->
+<!-- ║               SCRIPTS                       ║ -->
+<!-- ╚══════════════════════════════════════════════╝ -->
+<script src="js/animations.js"></script>
+<script src="js/card.js"></script>
+<script src="js/interactions.js"></script>
+
+<script>
+  // ── Lazy load YouTube video when gift is opened ──
+  document.getElementById('gift-btn')?.addEventListener('click', () => {
+    setTimeout(() => {
+      const iframe = document.getElementById('birthday-video');
+      if (iframe && iframe.dataset.src) {
+        iframe.src = iframe.dataset.src;
+      }
+    }, 1600);
+  }, { once: true });
+</script>
+
+</body>
+</html>

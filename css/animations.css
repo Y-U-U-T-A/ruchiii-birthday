@@ -1,0 +1,318 @@
+/* ============================================================
+   BIRTHDAY CARD — ANIMATIONS CSS
+   All keyframe animations and animated elements
+   ============================================================ */
+
+/* ---- Sparkle Particles ---- */
+@keyframes sparkle {
+  0%   { transform: scale(0) rotate(0deg);   opacity: 1; }
+  50%  { transform: scale(1) rotate(180deg); opacity: 1; }
+  100% { transform: scale(0) rotate(360deg); opacity: 0; }
+}
+
+.sparkle-particle {
+  position: absolute;
+  pointer-events: none;
+  animation: sparkle 1.2s ease forwards;
+}
+
+/* ---- Floating Hearts ---- */
+@keyframes floatHeart {
+  0%   { transform: translateY(0) scale(1) rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(-120px) scale(0.5) rotate(20deg); opacity: 0; }
+}
+
+.float-heart {
+  position: absolute;
+  font-size: 1.5rem;
+  pointer-events: none;
+  animation: floatHeart 2s ease forwards;
+}
+
+/* ---- Confetti ---- */
+@keyframes confettiFall {
+  0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+.confetti-piece {
+  position: fixed;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  z-index: 9000;
+  animation: confettiFall linear forwards;
+  border-radius: 2px;
+}
+
+/* ---- Firework ---- */
+@keyframes fireworkBurst {
+  0%   { transform: scale(0); opacity: 1; }
+  60%  { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes fireworkTrail {
+  0%   { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-80px); opacity: 0; }
+}
+
+.firework {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9000;
+}
+
+.firework-burst {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: fireworkBurst 0.8s ease forwards;
+}
+
+/* ---- Letter Writing Animation ---- */
+@keyframes inkAppear {
+  from { opacity: 0; transform: translateX(-3px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.letter-char {
+  display: inline;
+  opacity: 0;
+  animation: inkAppear 0.05s ease forwards;
+}
+
+/* ---- Sway Animation (sticky notes) ---- */
+@keyframes swayLeft {
+  0%, 100% { transform: rotate(-2deg); }
+  50%       { transform: rotate(2deg); }
+}
+
+@keyframes swayRight {
+  0%, 100% { transform: rotate(2deg); }
+  50%       { transform: rotate(-2deg); }
+}
+
+@keyframes swayMiddle {
+  0%, 100% { transform: rotate(-1deg); }
+  50%       { transform: rotate(1deg); }
+}
+
+/* ---- Floating emoji/stickers ---- */
+@keyframes floatUp {
+  0%   { transform: translateY(0) rotate(-5deg); opacity: 1; }
+  100% { transform: translateY(-180px) rotate(10deg); opacity: 0; }
+}
+
+@keyframes floatUpSlow {
+  0%   { transform: translateY(0) scale(1);   opacity: 1; }
+  100% { transform: translateY(-150px) scale(0.6); opacity: 0; }
+}
+
+.jar-note {
+  position: absolute;
+  background: #fff;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-family: var(--font-note);
+  font-size: 0.8rem;
+  color: #555;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: floatUpSlow ease forwards;
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 200px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ---- Memory Card Envelope ---- */
+@keyframes envelopeOpen {
+  0%   { transform: perspective(500px) rotateX(0deg); }
+  100% { transform: perspective(500px) rotateX(-180deg); }
+}
+
+.memory-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.memory-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(244,167,185,0.4);
+}
+
+.memory-card-front {
+  text-align: center;
+}
+
+.memory-card-inner {
+  display: none;
+  animation: pageEnter 0.5s ease;
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--color-ink);
+  line-height: 1.7;
+}
+
+.memory-card.opened .memory-card-front {
+  display: none;
+}
+
+.memory-card.opened .memory-card-inner {
+  display: block;
+}
+
+/* ---- Gift Box Animation ---- */
+@keyframes giftShake {
+  0%, 100% { transform: rotate(-3deg); }
+  25%       { transform: rotate(3deg) scale(1.02); }
+  50%       { transform: rotate(-2deg); }
+  75%       { transform: rotate(2deg) scale(1.02); }
+}
+
+@keyframes lidOpen {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-80px) rotate(-25deg); opacity: 0; }
+}
+
+@keyframes giftPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 10px 30px rgba(255,107,157,0.4)); }
+  50%       { transform: scale(1.03); filter: drop-shadow(0 15px 40px rgba(255,107,157,0.7)); }
+}
+
+#gift-box-img {
+  animation: giftPulse 2s ease-in-out infinite;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#gift-box-img:hover {
+  animation: giftShake 0.5s ease infinite;
+}
+
+/* ---- Final Message ---- */
+@keyframes finalReveal {
+  0%   { opacity: 0; transform: translateY(20px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.final-message {
+  animation: finalReveal 1s ease 0.5s both;
+}
+
+/* ---- Page decoration stickers ---- */
+@keyframes stickerBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  30%       { transform: translateY(-8px) scale(1.1); }
+  60%       { transform: translateY(-3px) scale(1.05); }
+}
+
+.deco-sticker {
+  display: inline-block;
+  animation: stickerBounce 2s ease-in-out infinite;
+  filter: drop-shadow(2px 3px 6px rgba(0,0,0,0.15));
+}
+
+/* ---- Glow pulse (for jar and gift) ---- */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(255,107,157,0.3); }
+  50%       { box-shadow: 0 0 50px rgba(255,107,157,0.7), 0 0 80px rgba(247,220,111,0.4); }
+}
+
+/* ---- Page background textures ---- */
+.page-texture-lines {
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    rgba(180,180,200,0.12) 27px,
+    rgba(180,180,200,0.12) 28px
+  );
+}
+
+/* ---- Typewriter cursor ---- */
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background: var(--color-ink);
+  margin-left: 2px;
+  animation: cursorBlink 0.7s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ---- Star sparkle decorations ---- */
+.star-deco {
+  position: absolute;
+  pointer-events: none;
+  animation: starTwinkle 2s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.4; transform: scale(0.8) rotate(0deg); }
+  50%       { opacity: 1;   transform: scale(1.2) rotate(180deg); }
+}
+
+/* ---- Washi tape pattern ---- */
+.washi-dots {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.5) 2px, transparent 2px);
+  background-size: 12px 12px;
+}
+
+.washi-hearts {
+  background-image: none;
+  position: relative;
+}
+
+.washi-hearts::after {
+  content: '❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  font-size: 9px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 2px;
+  overflow: hidden;
+}
+
+/* ---- Floating animation for page decorations ---- */
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33%       { transform: translateY(-5px) rotate(1deg); }
+  66%       { transform: translateY(3px) rotate(-1deg); }
+}
+
+.gentle-float {
+  animation: gentleFloat 4s ease-in-out infinite;
+}
+
+/* ---- Reveal animation ---- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.fade-in-up-delay-1 { animation-delay: 0.1s; opacity: 0; }
+.fade-in-up-delay-2 { animation-delay: 0.2s; opacity: 0; }
+.fade-in-up-delay-3 { animation-delay: 0.3s; opacity: 0; }
+.fade-in-up-delay-4 { animation-delay: 0.4s; opacity: 0; }
+.fade-in-up-delay-5 { animation-delay: 0.5s; opacity: 0; }
+.fade-in-up-delay-6 { animation-delay: 0.6s; opacity: 0; }

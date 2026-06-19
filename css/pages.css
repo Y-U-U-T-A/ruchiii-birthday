@@ -1,0 +1,663 @@
+/* ============================================================
+   BIRTHDAY CARD — PAGES CSS
+   Individual page styles for all 11 pages
+   ============================================================ */
+
+/* ============================================================
+   PAGE 1 — Birthday Cover
+   ============================================================ */
+#page-1 {
+  background: linear-gradient(160deg, #FFF0F7 0%, #FFE4EF 40%, #FFF3E0 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.p1-cover-img {
+  width: 100%;
+  height: 55%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.p1-content {
+  padding: 20px 30px;
+  text-align: center;
+  position: relative;
+}
+
+.p1-title {
+  font-family: var(--font-title);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  background: linear-gradient(135deg, #FF6B9D, #FF4757, #FF6348);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.p1-subtitle {
+  font-family: var(--font-hand);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: #C97ABA;
+  margin-bottom: 16px;
+}
+
+.p1-stickers {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  font-size: 1.8rem;
+  flex-wrap: wrap;
+}
+
+.p1-stickers span {
+  animation: stickerBounce 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+.p1-stickers span:nth-child(1) { animation-delay: 0s; }
+.p1-stickers span:nth-child(2) { animation-delay: 0.2s; }
+.p1-stickers span:nth-child(3) { animation-delay: 0.4s; }
+.p1-stickers span:nth-child(4) { animation-delay: 0.6s; }
+.p1-stickers span:nth-child(5) { animation-delay: 0.8s; }
+.p1-stickers span:nth-child(6) { animation-delay: 1s; }
+
+.p1-corner-deco {
+  position: absolute;
+  font-size: 1.2rem;
+}
+
+/* ============================================================
+   PAGE 2 — Her Journey
+   ============================================================ */
+#page-2 {
+  background: linear-gradient(135deg, #FFF8F0 0%, #FFF0E6 100%);
+}
+
+.p2-inner {
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.p2-heading {
+  font-family: var(--font-title);
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  color: #E88C9C;
+  text-align: center;
+}
+
+.p2-polaroid-wrap {
+  position: relative;
+  width: min(260px, 80vw);
+  margin: 10px auto;
+}
+
+.p2-tape {
+  position: absolute;
+  width: 70px;
+  height: 22px;
+  background: rgba(247, 220, 111, 0.7);
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  z-index: 5;
+  border-radius: 3px;
+}
+
+.p2-flowers {
+  width: 100%;
+  object-fit: contain;
+  opacity: 0.85;
+  margin-top: -10px;
+}
+
+.p2-caption {
+  font-family: var(--font-note);
+  font-size: 0.9rem;
+  color: #7a6060;
+  text-align: center;
+  max-width: 340px;
+  line-height: 1.7;
+}
+
+.p2-year-badge {
+  background: linear-gradient(135deg, var(--color-pink), var(--color-primary));
+  color: white;
+  font-family: var(--font-title);
+  font-size: 1rem;
+  padding: 6px 20px;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(255,107,157,0.35);
+}
+
+/* ============================================================
+   PAGES 3-6 — Memory Scrapbook
+   ============================================================ */
+.scrapbook-page {
+  background: var(--color-paper);
+  position: relative;
+}
+
+.scrapbook-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 90% 10%, rgba(244,167,185,0.12) 0%, transparent 40%),
+    radial-gradient(circle at 10% 90%, rgba(221,160,221,0.1) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.scrapbook-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  padding: 16px 20px;
+  width: 100%;
+}
+
+.scrapbook-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.scrapbook-item .polaroid {
+  width: 100%;
+  transform: rotate(var(--rot, 0deg));
+}
+
+.scrapbook-item .sticky-note {
+  width: 90%;
+  transform: rotate(var(--note-rot, 1deg));
+  font-size: 0.78rem;
+}
+
+/* Scattered emoji stickers */
+.scrapbook-stickers {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+}
+
+.scrapbook-stickers span {
+  position: absolute;
+  font-size: 1.5rem;
+}
+
+/* ============================================================
+   PAGE 7 — Special Moments (Memory Cards)
+   ============================================================ */
+#page-7 {
+  background: linear-gradient(160deg, #FFF0E6 0%, #FFE4D6 100%);
+}
+
+.p7-inner {
+  padding: 20px;
+  width: 100%;
+}
+
+.memories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.memory-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 16px 16px;
+  position: relative;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all 0.35s ease;
+  min-height: 130px;
+  overflow: hidden;
+}
+
+.memory-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--color-pink), var(--color-primary));
+  border-radius: 12px 12px 0 0;
+}
+
+.memory-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(244,167,185,0.4);
+}
+
+.memory-card-front {
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.memory-card-front .mc-emoji {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.memory-card-front .mc-hint {
+  font-family: var(--font-note);
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.memory-card-inner {
+  display: none;
+  font-family: var(--font-hand);
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  line-height: 1.7;
+  text-align: center;
+}
+
+.memory-card.opened .memory-card-front { display: none; }
+.memory-card.opened .memory-card-inner { display: block; animation: fadeInUp 0.4s ease; }
+
+/* ============================================================
+   PAGE 8 — Reasons You're Amazing
+   ============================================================ */
+#page-8 {
+  background: linear-gradient(160deg, #FFF9FF 0%, #FFF0F5 100%);
+  position: relative;
+}
+
+.p8-inner {
+  padding: 16px 16px;
+  width: 100%;
+}
+
+.reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.reasons-grid .sticky-note {
+  font-size: 0.82rem;
+  padding: 14px 12px;
+}
+
+.reasons-grid .sticky-note:nth-child(odd) {
+  animation: swayLeft 3s ease-in-out infinite;
+}
+.reasons-grid .sticky-note:nth-child(even) {
+  animation: swayRight 3.5s ease-in-out infinite;
+}
+.reasons-grid .sticky-note:nth-child(3n) {
+  animation: swayMiddle 4s ease-in-out infinite;
+}
+
+.reason-emoji {
+  display: block;
+  font-size: 1.4rem;
+  margin-bottom: 6px;
+}
+
+/* ============================================================
+   PAGE 9 — Memory Jar
+   ============================================================ */
+#page-9 {
+  background: linear-gradient(160deg, #E8F8FF 0%, #F0EEFF 100%);
+}
+
+.p9-inner {
+  padding: 16px 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.jar-container {
+  position: relative;
+  width: min(220px, 60vw);
+  margin: 10px auto;
+  cursor: pointer;
+}
+
+.jar-img {
+  width: 100%;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 10px 30px rgba(100,150,255,0.25));
+}
+
+.jar-container:hover .jar-img {
+  transform: scale(1.05);
+  filter: drop-shadow(0 15px 40px rgba(100,150,255,0.45));
+}
+
+.jar-glow {
+  position: absolute;
+  inset: 10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,220,150,0.3), transparent);
+  pointer-events: none;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+.jar-tap-hint {
+  font-family: var(--font-note);
+  font-size: 0.85rem;
+  color: #999;
+  margin-top: 8px;
+  animation: tapPulse 2s ease-in-out infinite;
+}
+
+.jar-notes-area {
+  position: relative;
+  height: 140px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.p9-caption {
+  font-family: var(--font-hand);
+  font-size: 0.95rem;
+  color: #7a8098;
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   PAGE 10 — Handwritten Letter
+   ============================================================ */
+#page-10 {
+  background: #FFF8F0;
+}
+
+.p10-inner {
+  padding: 16px 20px;
+  width: 100%;
+}
+
+.letter-paper {
+  background-image: url('../assets/images/parchment_bg.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  padding: 24px 28px;
+  position: relative;
+  box-shadow: 0 8px 40px rgba(150,100,50,0.2);
+  min-height: 300px;
+  overflow: hidden;
+}
+
+.letter-paper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 248, 230, 0.55);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.letter-content {
+  position: relative;
+  z-index: 2;
+}
+
+.letter-greeting {
+  font-family: var(--font-letter);
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: #8B4513;
+  margin-bottom: 14px;
+}
+
+.letter-body {
+  font-family: var(--font-letter);
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  color: #5D4037;
+  line-height: 2;
+  min-height: 160px;
+}
+
+.letter-sign {
+  font-family: var(--font-letter);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: #8B4513;
+  text-align: right;
+  margin-top: 16px;
+}
+
+.letter-flowers-deco {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 160px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.letter-heart-deco {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 1.5rem;
+  opacity: 0.5;
+}
+
+.wax-seal {
+  position: absolute;
+  bottom: 20px;
+  left: 24px;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle at 40% 40%, #E74C3C, #922B21);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 12px rgba(231,76,60,0.4);
+  color: rgba(255,255,255,0.9);
+}
+
+/* ============================================================
+   FINAL PAGE — Gift Reveal
+   ============================================================ */
+#page-final {
+  background: linear-gradient(160deg, #FFF0F5 0%, #FFE4F0 50%, #FFF3E0 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.final-inner {
+  padding: 20px 24px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.final-title {
+  font-family: var(--font-title);
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  background: linear-gradient(135deg, #FF6B9D, #FFD700, #FF6B9D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+}
+
+.gift-box-container {
+  position: relative;
+  width: min(200px, 55vw);
+  cursor: pointer;
+}
+
+.gift-box-container img {
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+.gift-btn {
+  background: linear-gradient(135deg, #FF6B9D, #FF4757);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 32px;
+  font-family: var(--font-title);
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  cursor: pointer;
+  margin-top: 16px;
+  box-shadow: 0 8px 25px rgba(255,71,87,0.45);
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.gift-btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 14px 40px rgba(255,71,87,0.65);
+}
+
+.gift-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.final-video-container {
+  display: none;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+  margin: 16px auto 0;
+}
+
+.final-video-container.visible {
+  display: block;
+  animation: fadeInUp 0.8s ease;
+}
+
+.final-video-container iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: none;
+}
+
+.final-quote {
+  display: none;
+  font-family: var(--font-hand);
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  color: var(--color-ink);
+  max-width: 480px;
+  margin: 16px auto 0;
+  line-height: 1.8;
+  text-align: center;
+  padding: 20px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(244,167,185,0.3);
+}
+
+.final-quote.visible {
+  display: block;
+  animation: finalReveal 1s ease;
+}
+
+/* ============================================================
+   OPENING ANIMATION — Inside of card reveal
+   ============================================================ */
+#card-inner-reveal {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #FFB3C6 0%, #FF80AB 50%, #E040A0 100%);
+  z-index: 2000;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#card-inner-reveal.active {
+  display: flex;
+  animation: revealFadeIn 0.5s ease;
+}
+
+#card-inner-reveal.fade-out {
+  animation: revealFadeOut 0.8s ease forwards;
+}
+
+@keyframes revealFadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes revealFadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.05); }
+}
+
+.reveal-title {
+  font-family: var(--font-title);
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  color: white;
+  text-shadow: 3px 5px 20px rgba(0,0,0,0.3);
+  line-height: 1.3;
+  animation: revealTitlePop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+}
+
+@keyframes revealTitlePop {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.reveal-subtitle {
+  font-family: var(--font-hand);
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: rgba(255,255,255,0.9);
+  margin-top: 12px;
+  animation: revealTitlePop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
+}
+
+.reveal-emojis {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-top: 16px;
+  animation: revealTitlePop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s both;
+}
+
+.reveal-continue {
+  font-family: var(--font-note);
+  font-size: 1rem;
+  color: rgba(255,255,255,0.8);
+  margin-top: 24px;
+  animation: tapPulse 2s ease-in-out 1s infinite;
+}
+
+/* ============================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================ */
+@media (max-width: 640px) {
+  .scrapbook-grid   { grid-template-columns: 1fr; }
+  .memories-grid    { grid-template-columns: 1fr; }
+  .reasons-grid     { grid-template-columns: 1fr; }
+  .polaroid img     { height: 180px; object-fit: contain !important; background: #faf8f5; }
+
+  .p2-polaroid-wrap { width: min(220px, 85vw); }
+
+  .letter-paper     { padding: 18px 18px; }
+
+  .gift-btn         { padding: 12px 24px; }
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+  .scrapbook-grid   { grid-template-columns: repeat(2, 1fr); }
+}

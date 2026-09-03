@@ -357,6 +357,12 @@
   animation: tapPulse 2s ease-in-out infinite;
 }
 
+.jar-fallback {
+  font-size: 8rem;
+  line-height: 1;
+  filter: drop-shadow(0 10px 30px rgba(100,150,255,0.25));
+}
+
 .jar-notes-area {
   position: relative;
   height: 140px;
@@ -660,4 +666,97 @@
 
 @media (min-width: 641px) and (max-width: 900px) {
   .scrapbook-grid   { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ============================================================
+   VIDEO PAGES (page-v1 … page-v6)
+   ============================================================ */
+.video-page {
+  background: rgba(0, 0, 0, 0.18) !important;
+  position: relative;
+}
+
+/* Full-bleed video inside the card */
+.card-video-player {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 0;
+  z-index: 2;
+  background: #111;
+}
+
+.video-page.active .card-video-player {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  object-fit: cover;
+  background: #080808;
+  opacity: 1;
+}
+
+.video-page.video-error::after {
+  content: 'This video could not be loaded. Tap the player controls to try again.';
+  position: fixed;
+  inset: auto 20px 90px;
+  z-index: 4;
+  color: #fff;
+  font-family: var(--font-hand);
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* ============================================================
+   PAGE 12 - Video Memories Intro
+   ============================================================ */
+#page-12 {
+  background: linear-gradient(145deg, #fff8f0 0%, #ffe1ed 48%, #d9f4f0 100%);
+}
+
+.p12-inner {
+  width: min(620px, 90%);
+  margin: auto;
+  padding: 32px 24px;
+  text-align: center;
+  border: 2px solid rgba(255, 107, 157, 0.2);
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 18px 50px rgba(190, 110, 145, 0.18);
+}
+
+.p12-filmstrip { font-size: clamp(2rem, 6vw, 3.4rem); letter-spacing: 8px; margin: 22px 0; }
+.p12-message { font-family: var(--font-hand); font-size: clamp(1.2rem, 3vw, 1.7rem); color: #744d63; }
+.p12-ticket { display: inline-block; margin-top: 24px; padding: 10px 18px; border: 2px dashed #e99ab6; color: #b65379; font-family: var(--font-note); }
+.p12-arrow { margin-top: 18px; color: #ff6b9d; font-size: 2rem; animation: arrowNudge 1.4s ease-in-out infinite; }
+
+@keyframes arrowNudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+}
+
+/* Overlay caption bar at the bottom */
+.video-caption-bar {
+  position: absolute;
+  bottom: 60px; /* above nav bar */
+  left: 0;
+  right: 0;
+  padding: 12px 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%);
+  color: #fff;
+  font-family: var(--font-hand);
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  text-align: center;
+  pointer-events: none;
+  z-index: 3;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+
+/* Emoji row inside caption */
+.video-caption-bar .vc-emoji {
+  font-size: 1.4rem;
+  display: block;
+  margin-bottom: 4px;
 }

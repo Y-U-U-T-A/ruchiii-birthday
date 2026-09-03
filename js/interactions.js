@@ -26,6 +26,16 @@ const MusicPlayer = {
     if (btn) {
       btn.addEventListener('click', () => this.toggle());
     }
+
+    // When music is OFF, let the background video play its audio instead
+    this._syncVideoAudio();
+  },
+
+  _syncVideoAudio() {
+    const bgVideo = document.getElementById('bg-video');
+    if (!bgVideo) return;
+    // Start muted; will be unmuted when music is off
+    bgVideo.muted = true;
   },
 
   start() {
@@ -36,10 +46,12 @@ const MusicPlayer = {
       playPromise.then(() => {
         this.playing = true;
         this.updateBtn();
+        this._applyVideoAudio();
       }).catch(() => {
         // Auto-play blocked — user will need to click music button
         this.playing = false;
         this.updateBtn();
+        this._applyVideoAudio();
       });
     }
   },
@@ -53,6 +65,25 @@ const MusicPlayer = {
       this.playing = true;
     }
     this.updateBtn();
+    this._applyVideoAudio();
+  },
+
+  // When music is ON → mute video audio; when music is OFF → unmute video so its sound plays
+  _applyVideoAudio() {
+    // Sync the background card video
+    const bgVideo = document.getElementById('bg-video');
+    if (bgVideo) {
+      bgVideo.muted = this.playing;
+      if (!this.playing) bgVideo.play().catch(() => {});
+    }
+    // Sync any active video page player
+    const activePage = document.querySelector('.card-page.active');
+    if (activePage) {
+      const vid = activePage.querySelector('.card-video-player');
+      if (vid && !vid.paused) {
+        vid.muted = this.playing;
+      }
+    }
   },
 
   updateBtn() {

@@ -219,36 +219,116 @@ const Animations = {
     const photos = Array.from(document.querySelectorAll('.polaroid img')).map(img => img.src);
     if (photos.length === 0) return;
 
-    // We will spam 16 photos (repeating if needed)
-    const spamCount = 18;
+    const stickies = [
+      "Our first walk! 🚶‍♀️",
+      "Held your hand here! 🤝",
+      "That look in your eyes 💖",
+      "You goddess! 💋",
+      "My favourite click! 🌟",
+      "This cute smile 😊",
+      "Magical days! ✨",
+      "Best friend ever 🎁",
+      "Cutest expression! 😍",
+      "Too special! 💕",
+      "Never forget this day! 🎂",
+      "You make me happy 🤭",
+      "No crying today! radu nako 🚫",
+      "So glad we met! 🌸",
+      "Always in my heart! ❤️",
+      "More surprises coming! 💫"
+    ];
+
+    const spamCount = 16;
     for (let i = 0; i < spamCount; i++) {
       setTimeout(() => {
         const src = photos[i % photos.length];
         
+        // Random landing positions
+        const randomX = Math.random() * 82 + 2; // 2vw to 84vw
+        const randomY = Math.random() * 65 + 10; // 10vh to 75vh
+        const randomRot = (Math.random() - 0.5) * 50; // -25deg to +25deg
+
         // Create a custom mini polaroid container to throw
         const spamDiv = document.createElement('div');
         spamDiv.className = 'spam-polaroid';
         spamDiv.style.cssText = `
           position: fixed;
-          width: 140px;
-          padding: 8px 8px 24px 8px;
+          width: 130px;
+          padding: 8px 8px 18px 8px;
           background: white;
-          box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-          border: 1px solid #ddd;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+          border: 1px solid #eee;
           border-radius: 4px;
-          left: ${Math.random() * 80 + 5}vw;
-          top: -200px;
+          left: ${randomX}vw;
+          top: -250px;
           z-index: 10000;
-          pointer-events: none;
-          transform: rotate(${(Math.random() - 0.5) * 80}deg);
-          animation: throwPhoto ${Math.random() * 2 + 2}s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+          pointer-events: auto;
+          --land-y: ${randomY}vh;
+          --land-rot: ${randomRot}deg;
+          animation: throwPhoto ${Math.random() * 1.2 + 1.2}s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+          cursor: grab;
         `;
+
+        // Make them draggable so user can move them around
+        let isDragging = false;
+        let startX, startY, origLeft, origTop;
+        
+        spamDiv.addEventListener('mousedown', (e) => {
+          isDragging = true;
+          spamDiv.style.zIndex = 10005; // Bring clicked photo to front
+          startX = e.clientX;
+          startY = e.clientY;
+          const rect = spamDiv.getBoundingClientRect();
+          origLeft = rect.left;
+          origTop = rect.top;
+          spamDiv.style.animation = 'none';
+          spamDiv.style.top = origTop + 'px';
+          spamDiv.style.left = origLeft + 'px';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+          spamDiv.style.left = (origLeft + dx) + 'px';
+          spamDiv.style.top = (origTop + dy) + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+          isDragging = false;
+        });
+
+        // Touch support for mobile dragging
+        spamDiv.addEventListener('touchstart', (e) => {
+          isDragging = true;
+          spamDiv.style.zIndex = 10005;
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          const rect = spamDiv.getBoundingClientRect();
+          origLeft = rect.left;
+          origTop = rect.top;
+          spamDiv.style.animation = 'none';
+          spamDiv.style.top = origTop + 'px';
+          spamDiv.style.left = origLeft + 'px';
+        }, { passive: true });
+
+        spamDiv.addEventListener('touchmove', (e) => {
+          if (!isDragging) return;
+          const dx = e.touches[0].clientX - startX;
+          const dy = e.touches[0].clientY - startY;
+          spamDiv.style.left = (origLeft + dx) + 'px';
+          spamDiv.style.top = (origTop + dy) + 'px';
+        }, { passive: true });
+
+        spamDiv.addEventListener('touchend', () => {
+          isDragging = false;
+        });
 
         const img = document.createElement('img');
         img.src = src;
         img.style.cssText = `
           width: 100%;
-          height: 100px;
+          height: 90px;
           object-fit: cover;
           border-radius: 2px;
           background: #faf8f5;
@@ -260,23 +340,36 @@ const Animations = {
         caption.textContent = ['💕', '✨', '💖', '🎂', '🌸', '😘', '😊', '😍'][i % 8];
         caption.style.cssText = `
           font-family: var(--font-note, 'Indie Flower', cursive);
-          font-size: 0.8rem;
+          font-size: 0.75rem;
           text-align: center;
-          margin-top: 6px;
+          margin-top: 4px;
           color: #e85a71;
         `;
         spamDiv.appendChild(caption);
 
-        document.body.appendChild(spamDiv);
-        
-        // Soft float down and land somewhere
-        setTimeout(() => {
-          spamDiv.style.transition = 'opacity 1s ease';
-          spamDiv.style.opacity = '0.7';
-        }, 3500);
+        // Attach a cute sticky note to the photo
+        const sticky = document.createElement('div');
+        const noteColors = ['#FEFBA7', '#FFD6E7', '#D4EDFF', '#D4FFDC', '#EDD4FF', '#FFE5CC'];
+        sticky.style.cssText = `
+          position: absolute;
+          width: 110px;
+          padding: 6px;
+          background: ${noteColors[i % noteColors.length]};
+          box-shadow: 2px 5px 15px rgba(0,0,0,0.12);
+          font-family: var(--font-note, 'Indie Flower', cursive);
+          font-size: 0.7rem;
+          color: #444;
+          bottom: -30px;
+          left: 10px;
+          transform: rotate(${(Math.random() - 0.5) * 20}deg);
+          border-radius: 2px;
+          text-align: center;
+          border: 1px solid rgba(0,0,0,0.05);
+        `;
+        sticky.textContent = stickies[i % stickies.length];
+        spamDiv.appendChild(sticky);
 
-        // Remove after a while so it doesn't slow down the browser
-        setTimeout(() => spamDiv.remove(), 6000);
+        document.body.appendChild(spamDiv);
       }, i * 180);
     }
   }

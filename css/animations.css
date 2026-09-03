@@ -328,20 +328,23 @@
 /* ---- Throw Photo (Final Spam Reveal) ---- */
 @keyframes throwPhoto {
   0% {
-    top: -200px;
-    transform: translate(0, 0) rotate(-60deg) scale(0.3);
+    top: -250px;
+    transform: rotate(-60deg) scale(0.3);
     opacity: 0;
+  }
+  15% {
+    opacity: 0.3;
   }
   30% {
     opacity: 1;
+    transform: rotate(var(--mid-rot, -20deg)) scale(0.8);
   }
-  50% {
-    top: 40%;
-    transform: translateY(-50%) rotate(var(--spam-rot, 15deg)) scale(1.1);
+  85% {
+    opacity: 1;
   }
   100% {
-    top: 110%;
-    transform: translateY(0) rotate(var(--spam-rot, -15deg)) scale(0.9);
-    opacity: 0;
+    top: var(--land-y, 45vh);
+    transform: rotate(var(--land-rot, 5deg)) scale(1);
+    opacity: 1;
   }
 }

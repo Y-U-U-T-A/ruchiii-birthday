@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -198,6 +198,16 @@
 <!-- ╚══════════════════════════════════════════════╝ -->
 <div id="card-world">
   <div id="card-wrapper">
+
+    <!-- ── CARD BACKGROUND VIDEO ── -->
+    <video id="bg-video"
+           src="assets/videos/In the pool.mp4"
+           autoplay
+           loop
+           muted
+           playsinline
+           preload="auto">
+    </video>
 
     <!-- ── CLOSED CARD COVER ── -->
     <div id="card-closed">
@@ -632,7 +642,6 @@
           <div class="page-scroll">
             <div class="p8-inner">
               <div class="page-title">💛 Reasons You're Amazing 💛</div>
-
               <div class="reasons-grid">
 
                 <div class="sticky-note yellow" style="transform:rotate(-3deg);">
@@ -679,9 +688,6 @@
 
             </div>
           </div>
-          <!-- Hidden surprise sticker -->
-          <span class="surprise-sticker" id="surprise-star"
-                style="bottom:12px;right:14px;position:absolute;animation-delay:0.5s;">⭐</span>
         </div><!-- /#page-8 -->
 
 
@@ -692,55 +698,14 @@
           <div class="page-scroll">
             <div class="p9-inner">
               <div class="page-title">🫙 Memory Jar 🫙</div>
-              <p style="font-family:var(--font-hand);font-size:1rem;color:#888;text-align:center;">
-                This jar holds every precious memory — tap it to release them! ✨
-              </p>
+              <p style="font-family:var(--font-hand);font-size:1rem;color:#888;text-align:center;">Tap the jar and let the memories float out ✨</p>
 
-              <!-- SVG Memory Jar -->
-              <div class="jar-svg-wrap" id="jar-container">
-                <svg class="jar-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Cork lid -->
-                  <rect x="60" y="20" width="80" height="22" rx="6"
-                        fill="url(#corkGrad)" stroke="#C8952A" stroke-width="1.5"/>
-                  <!-- Lid band -->
-                  <rect x="55" y="38" width="90" height="10" rx="3"
-                        fill="#A0C4FF" opacity="0.6"/>
-                  <!-- Jar body -->
-                  <path d="M45 52 Q40 52 38 60 L30 210 Q28 230 40 235 H160 Q172 230 170 210 L162 60 Q160 52 155 52 Z"
-                        fill="url(#glassGrad)" stroke="#A0C4FF" stroke-width="2"/>
-                  <!-- Jar shine left -->
-                  <path d="M55 65 Q52 80 53 130 Q54 160 58 180"
-                        stroke="rgba(255,255,255,0.7)" stroke-width="4" stroke-linecap="round"/>
-                  <!-- Jar shine right small -->
-                  <path d="M68 62 Q66 75 67 100"
-                        stroke="rgba(255,255,255,0.4)" stroke-width="2.5" stroke-linecap="round"/>
-                  <!-- Notes inside jar -->
-                  <rect x="70" y="100" width="28" height="18" rx="3" fill="#FEFBA7" transform="rotate(-8 70 100)" opacity="0.9"/>
-                  <rect x="108" y="115" width="28" height="18" rx="3" fill="#FFD6E7" transform="rotate(5 108 115)" opacity="0.9"/>
-                  <rect x="80" y="140" width="28" height="18" rx="3" fill="#D4EDFF" transform="rotate(-3 80 140)" opacity="0.9"/>
-                  <rect x="115" y="158" width="24" height="16" rx="3" fill="#EDD4FF" transform="rotate(7 115 158)" opacity="0.9"/>
-                  <rect x="65" y="170" width="26" height="16" rx="3" fill="#D4FFDC" transform="rotate(-5 65 170)" opacity="0.9"/>
-                  <!-- Bottom base -->
-                  <ellipse cx="100" cy="230" rx="60" ry="8" fill="rgba(160,196,255,0.3)"/>
-                  <!-- Flower deco on jar -->
-                  <text x="88" y="96" font-size="14" opacity="0.85">🌸</text>
-                  <!-- Defs -->
-                  <defs>
-                    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%"   stop-color="#C8E6FF" stop-opacity="0.6"/>
-                      <stop offset="50%"  stop-color="#EAF4FF" stop-opacity="0.85"/>
-                      <stop offset="100%" stop-color="#C8E6FF" stop-opacity="0.5"/>
-                    </linearGradient>
-                    <linearGradient id="corkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%"   stop-color="#F5C97A"/>
-                      <stop offset="100%" stop-color="#C8952A"/>
-                    </linearGradient>
-                  </defs>
-                </svg>
-
+              <div class="jar-container" id="jar-container">
                 <div class="jar-glow"></div>
+                <img class="jar-img" src="assets/images/memory_jar.png" alt="Memory jar"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                <div class="jar-fallback" style="display:none;">🫙</div>
               </div>
-
               <div class="jar-tap-hint">✨ Tap the jar to release the memories ✨</div>
 
               <!-- Notes appear here -->
@@ -824,18 +789,6 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
                 Open Your Birthday Gift 🎁
               </button>
 
-              <!-- VIDEO EMBED — replace YOUR_VIDEO_ID with actual YouTube video ID -->
-              <div id="final-video-container" class="final-video-container">
-                <iframe
-                  id="birthday-video"
-                  src="about:blank"
-                  data-src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1"
-                  title="Birthday video"
-                  allow="autoplay; encrypted-media"
-                  allowfullscreen>
-                </iframe>
-              </div>
-
               <!-- Final quote -->
               <div id="final-quote" class="final-quote">
                 <span style="font-size:1.5rem;">🌸✨💖✨🌸</span><br><br>
@@ -850,6 +803,125 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
             </div>
           </div>
         </div><!-- /#page-final -->
+
+        <!-- ════════════════════════════════════════════
+             PAGE 12 — More Memories
+        ════════════════════════════════════════════ -->
+        <div class="card-page" id="page-12">
+          <div class="page-scroll">
+            <div class="p12-inner">
+              <div class="page-title">🎞️ More Memories 🎞️</div>
+              <div class="p12-filmstrip" aria-hidden="true">🎬 ✨ 🎥 💖 🎞️ 🌸</div>
+              <p class="p12-message">The sweetest moments deserve their own little cinema.</p>
+              <div class="p12-ticket">Turn the page for your video memories</div>
+              <div class="p12-arrow">→</div>
+            </div>
+          </div>
+        </div><!-- /#page-12 -->
+
+        <!-- ════════════════════════════════════════════
+             VIDEO PAGE 1 — In the Pool 🏊
+        ════════════════════════════════════════════ -->
+        <div class="card-page video-page" id="page-v1">
+          <video class="card-video-player" id="vid-pool"
+                 src="assets/videos/In the pool.mp4"
+               loop muted playsinline controls preload="auto"></video>
+          <div class="video-caption-bar">
+            <span class="vc-emoji">🏊‍♀️✨</span>
+            Splashing good memories — look at you having a blast! 💦
+          </div>
+        </div><!-- /#page-v1 -->
+
+        <!-- ════════════════════════════════════════════
+             VIDEO PAGE 2
+        ════════════════════════════════════════════ -->
+        <div class="card-page video-page" id="page-v2">
+          <video class="card-video-player" id="vid-2"
+                 src="assets/videos/VID-20260124-WA0115.mp4"
+               loop muted playsinline controls preload="auto"></video>
+          <div class="video-caption-bar">
+            <span class="vc-emoji">🎬💖</span>
+            A little moment frozen in time, just for you 🌸
+          </div>
+        </div><!-- /#page-v2 -->
+
+        <!-- ════════════════════════════════════════════
+             VIDEO PAGE 3
+        ════════════════════════════════════════════ -->
+        <div class="card-page video-page" id="page-v3">
+          <video class="card-video-player" id="vid-3"
+                 src="assets/videos/VID-20260124-WA0176.mp4"
+               loop muted playsinline controls preload="auto"></video>
+          <div class="video-caption-bar">
+            <span class="vc-emoji">🌟😍</span>
+            Every frame of you is a masterpiece 📸
+          </div>
+        </div><!-- /#page-v3 -->
+
+        <!-- ════════════════════════════════════════════
+             VIDEO PAGE 4
+        ════════════════════════════════════════════ -->
+        <div class="card-page video-page" id="page-v4">
+          <video class="card-video-player" id="vid-4"
+                 src="assets/videos/VID-20260125-WA0040.mp4"
+               loop muted playsinline controls preload="auto"></video>
+          <div class="video-caption-bar">
+            <span class="vc-emoji">🦋💕</span>
+            You light up every place you walk into ✨
+          </div>
+        </div><!-- /#page-v4 -->
+
+        <!-- ════════════════════════════════════════════
+             VIDEO PAGE 5
+        ════════════════════════════════════════════ -->
+        <div class="card-page video-page" id="page-v5">
+          <video class="card-video-player" id="vid-5"
+                 src="assets/videos/VID-20260125-WA0047.mp4"
+               loop muted playsinline controls preload="auto"></video>
+          <div class="video-caption-bar">
+            <span class="vc-emoji">🎉💃</span>
+            The life of every party — that's you! 🥳
+          </div>
+        </div><!-- /#page-v5 -->
+
+        <!-- ════════════════════════════════════════════
+             VIDEO PAGE 6
+        ════════════════════════════════════════════ -->
+        <div class="card-page video-page" id="page-v6">
+          <video class="card-video-player" id="vid-6"
+                 src="assets/videos/VID-20260125-WA0049.mp4"
+               loop muted playsinline controls preload="auto"></video>
+          <div class="video-caption-bar">
+            <span class="vc-emoji">🌸❤️</span>
+            Precious, precious you — never change! 💖
+          </div>
+        </div><!-- /#page-v6 -->
+
+        <!-- ════════════════════════════════════════════
+             VIDEO PAGE 7
+        ════════════════════════════════════════════ -->
+        <div class="card-page video-page" id="page-v7">
+          <video class="card-video-player" id="vid-7"
+                 src="assets/videos/VID-20260125-WA0050.mp4"
+               loop muted playsinline controls preload="auto"></video>
+          <div class="video-caption-bar">
+            <span class="vc-emoji">😊🌼</span>
+            That smile though… it could end wars! 🌟
+          </div>
+        </div><!-- /#page-v7 -->
+
+        <!-- ════════════════════════════════════════════
+             VIDEO PAGE 8
+        ════════════════════════════════════════════ -->
+        <div class="card-page video-page" id="page-v8">
+          <video class="card-video-player" id="vid-8"
+                 src="assets/videos/VID-20260125-WA0399.mp4"
+               loop muted playsinline controls preload="auto"></video>
+          <div class="video-caption-bar">
+            <span class="vc-emoji">💫🎀</span>
+            Saving the best moments for last 🎂
+          </div>
+        </div><!-- /#page-v8 -->
 
       </div><!-- /.page-container -->
     </div><!-- /#card-open -->
@@ -878,17 +950,6 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
 <script src="js/card.js"></script>
 <script src="js/interactions.js"></script>
 
-<script>
-  // ── Lazy load YouTube video when gift is opened ──
-  document.getElementById('gift-btn')?.addEventListener('click', () => {
-    setTimeout(() => {
-      const iframe = document.getElementById('birthday-video');
-      if (iframe && iframe.dataset.src) {
-        iframe.src = iframe.dataset.src;
-      }
-    }, 1600);
-  }, { once: true });
-</script>
-
 </body>
+
 </html>

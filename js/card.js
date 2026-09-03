@@ -22,6 +22,7 @@ const pageIndicator   = document.getElementById('page-indicator');
 
 // ---- Init ----
 document.addEventListener('DOMContentLoaded', () => {
+  addExtraVideoPages();
   const pages = document.querySelectorAll('.card-page');
   totalPages = pages.length;
 
@@ -134,8 +135,8 @@ function flipPage(direction) {
       isFlipping = false;
       // Trigger page-specific effects
       onPageEnter(currentPage);
-    }, 500);
-  }, 450);
+    }, 1200);
+  }, 1200);
 }
 
 function showPage(index) {
@@ -159,33 +160,99 @@ function updateNav() {
 
 // ---- Page-specific effects on enter ----
 function onPageEnter(pageIndex) {
-  const pageIds = [
-    'page-1', 'page-2', 'page-3', 'page-4',
-    'page-5', 'page-6', 'page-7', 'page-8',
-    'page-9', 'page-10', 'page-final'
-  ];
+  const pageIds = Array.from(document.querySelectorAll('.card-page')).map(page => page.id);
+
+  // Pause ALL card videos first, then play the active one
+  document.querySelectorAll('.card-video-player').forEach(v => {
+    v.pause();
+  });
 
   const id = pageIds[pageIndex];
+  const isVideoPage = id && (id.startsWith('page-v') || id.startsWith('page-extra-video'));
+  document.body.classList.toggle('video-mode', pageIndex >= 12);
+
+  // Auto-play video pages
+  if (isVideoPage) {
+    const activePage = document.getElementById(id);
+    if (activePage) {
+      const vid = activePage.querySelector('.card-video-player');
+      if (vid) {
+        // Respect music toggle: mute video if music is on
+        vid.muted = true;
+        const playVideo = () => {
+          vid.currentTime = 0;
+          vid.muted = MusicPlayer.playing;
+          return vid.play().catch(() => {
+            // Autoplay blocked — play muted as fallback
+            vid.muted = true;
+            vid.play().catch(() => {});
+          });
+        };
+        vid.addEventListener('canplay', playVideo, { once: true });
+        vid.addEventListener('error', () => activePage.classList.add('video-error'), { once: true });
+        vid.load();
+        if (vid.readyState >= 3) playVideo();
+        vid.onclick = () => {
+          if (vid.paused) playVideo();
+        };
+      }
+    }
+  }
 
   switch(id) {
     case 'page-1':
       Animations.sparkleRain(8);
       break;
     case 'page-9':
-      // Reset jar state
       window.jarOpened = false;
       break;
     case 'page-10':
-      // Start letter writing effect if not started
       if (!window.letterWritten) {
         setTimeout(() => startLetterAnimation(), 400);
       }
       break;
     case 'page-final':
-      // Gentle float hearts
       setTimeout(() => Animations.floatHearts(5), 300);
       break;
   }
+}
+
+function addExtraVideoPages() {
+  const extraVideos = [
+    'VID20251125090931.mp4',
+    '2025-12-04_b~EiASFU9FcFh1WElFS3ZFREpWOFIwM2E0QzIBD0gDUARgAQ.mp4',
+    '2025-12-06_b~EiASFVhiUDBaZ2lxOTVPV0ZOc2I5WGdnWDIBD0gCUARgAQ.mp4',
+    '2025-12-06_b~EiASFWhlanBRTG9Xb29VdHBpSGg2NjZwTzIBD0gCUARgAQ.mp4',
+    '2025-12-07_b~EiASFUozOEY5amFRYnBPOXQwN2EwZFJmYzIBdEgCUARgAQ.mp4',
+    '2025-12-07_b~EiASFUtjRzkyYmY4cFEyRU1CbkM0YlJLdTIBD0gDUARgAQ.mp4',
+    '2025-12-07_b~EiASFUx1ek1JSlFPV0VRbUJmcEMzbml0WTIBdEgCUARgAQ.mp4',
+    '2025-12-14_b~EiASFXl1RnFpblBkck1KcG9wNlBZZ3VtNDIBD0gCUARgAQ.mp4',
+    '2025-12-20_b~EiASFXZ0aE9wSDlzSVBiRUt6djE5bG14QzIBD0gCUARgAQ.mp4',
+    '2025-12-27_b~EiASFUlyM09ISkxScnRsbnpIamlJelAyUDIBD0gCUARgAQ.mp4',
+    '2025-12-27_b~EiASFWtZVm45YzJwRkdaa2IwVUw0Qm9DdjIBD0gCUARgAQ.mp4',
+    '2026-01-12_b~EiASFThNQXYwSzRyTk9jSmVOYWxvU3gzbjIBD0gCUARgAQ.mp4',
+    '2026-01-12_b~EiASFUpjYnhHdXppWlFBalFHZDFTbnljdzIBD0gHUARgAQ.mp4',
+    '2026-01-17_b~EiASFU0wUDF6TU1iR0JhVnpxREV0YWNBRDIBD0gCUARgAQ.mp4',
+    '2026-01-17_b~EiASFWl2M25lQWxtWTBoUjczU2RwVElHcTIBD0gCUARgAQ.mp4',
+    '2026-01-17_b~EiASFWwwTEw1eVpRTm5iVnliS3g4aXEzbzIBD0gCUARgAQ.mp4',
+    '2026-01-24_b~EiASFVRURVdmUkpJamNnMkV4V3VOY01oQzIBD0gCUARgAQ.mp4',
+    '2026-02-09_b~EiASFUtkZHExdENBTzlEMmNWWnpNbEd2SDIBdEgEUARgAQ.mp4',
+    '2026-02-13_b~EiASFU5XdFVWY0RRa3VXUGRkMm5sbmo3aTIBD0gCUARgAQ.mp4',
+    '2026-02-15_media~Snapchat-2006134805.zip.nomedia.mp4',
+    '2026-02-17_b~EiASFUVJcjdBZGpaSUZSdGc5N2JMTEo0YTIBD0gEUARgAQ.mp4',
+    '2026-02-19_b~EiASFURhVkRnZGVpbXl6dTlYd1dRSkxvRzIBD0gCUARgAQ.mp4',
+    '2026-02-19_b~EiASFVNDZXFGN2t6SnZxYU9ZQThwcHRxYzIBdEgCUARgAQ.mp4',
+    '2026-02-19_b~EiASFW9wenRScnFjUEZkVDRaUnpzY1MwcTIBdEgCUARgAQ.mp4',
+    '2026-02-23_b~EiASFWhacWF3dDZna0ZVbzU0TGU4OWMzSTIBfUgCUARgAQ.mp4'
+  ];
+  const container = document.querySelector('.page-container');
+  extraVideos.forEach((file, index) => {
+    const page = document.createElement('div');
+    page.className = 'card-page video-page';
+    page.id = `page-extra-video-${index + 1}`;
+    page.innerHTML = `<video class="card-video-player" src="assets/videos/${file}" loop muted playsinline controls preload="auto"></video><div class="video-caption-bar"><span class="vc-emoji">🎥✨</span>Another beautiful memory, saved forever 💖</div>`;
+    container.appendChild(page);
+  });
 }
 
 // ---- Letter typewriter animation ----

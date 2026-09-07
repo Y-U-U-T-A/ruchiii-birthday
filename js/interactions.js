@@ -68,6 +68,13 @@ const MusicPlayer = {
     this._applyVideoAudio();
   },
 
+  stop() {
+    if (!this.audio) return;
+    this.audio.pause();
+    this.playing = false;
+    this.updateBtn();
+  },
+
   // When music is ON → mute video audio; when music is OFF → unmute video so its sound plays
   _applyVideoAudio() {
     // Sync the background card video

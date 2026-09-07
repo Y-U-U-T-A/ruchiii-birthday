@@ -325,7 +325,7 @@ body.video-mode .photo-placeholder {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  animation: pageFlipOut 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+  animation: pageFlipOut 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
   z-index: 1;
 }
 
@@ -334,7 +334,7 @@ body.video-mode .photo-placeholder {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  animation: pageFlipIn 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+  animation: pageFlipIn 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
   z-index: 3;
 }
 
@@ -447,7 +447,7 @@ body.video-mode .photo-placeholder {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  animation: pageFlipInReverse 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+  animation: pageFlipInReverse 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
   z-index: 3;
 }
 

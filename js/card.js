@@ -9,6 +9,7 @@
 let currentPage = 0;
 let totalPages   = 0;
 let isFlipping   = false;
+const PAGE_FLIP_DURATION = 800;
 
 // ---- DOM refs ----
 const loadingScreen   = document.getElementById('loading-screen');
@@ -135,8 +136,8 @@ function flipPage(direction) {
       isFlipping = false;
       // Trigger page-specific effects
       onPageEnter(currentPage);
-    }, 1200);
-  }, 1200);
+    }, PAGE_FLIP_DURATION);
+  }, PAGE_FLIP_DURATION);
 }
 
 function showPage(index) {
@@ -173,15 +174,16 @@ function onPageEnter(pageIndex) {
 
   // Auto-play video pages
   if (isVideoPage) {
+    MusicPlayer.stop();
     const activePage = document.getElementById(id);
     if (activePage) {
       const vid = activePage.querySelector('.card-video-player');
       if (vid) {
-        // Respect music toggle: mute video if music is on
-        vid.muted = true;
+        // Let the active memory video provide its own audio.
+        vid.muted = false;
         const playVideo = () => {
           vid.currentTime = 0;
-          vid.muted = MusicPlayer.playing;
+          vid.muted = false;
           return vid.play().catch(() => {
             // Autoplay blocked — play muted as fallback
             vid.muted = true;
@@ -250,7 +252,7 @@ function addExtraVideoPages() {
     const page = document.createElement('div');
     page.className = 'card-page video-page';
     page.id = `page-extra-video-${index + 1}`;
-    page.innerHTML = `<video class="card-video-player" src="assets/videos/${file}" loop muted playsinline controls preload="auto"></video><div class="video-caption-bar"><span class="vc-emoji">🎥✨</span>Another beautiful memory, saved forever 💖</div>`;
+    page.innerHTML = `<video class="card-video-player" src="assets/videos/${file}" loop playsinline controls preload="auto"></video><div class="video-caption-bar"><span class="vc-emoji">🎥✨</span>Another beautiful memory, saved forever 💖</div>`;
     container.appendChild(page);
   });
 }

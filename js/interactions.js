@@ -19,6 +19,7 @@ const MusicPlayer = {
     // You can replace this URL with any audio file
     this.audio = new Audio();
     this.audio.src = 'assets/audio/WhatsApp Audio 2026-06-18 at 2.26.43 PM.mpeg';
+    this.audio.preload = 'auto';
     this.audio.loop = true;
     this.audio.volume = 0.18;
 
@@ -39,33 +40,29 @@ const MusicPlayer = {
   },
 
   start() {
-    if (this.started) return;
+    if (!this.audio || this.playing) return;
     this.started = true;
-    const playPromise = this.audio.play();
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
-        this.playing = true;
-        this.updateBtn();
-        this._applyVideoAudio();
-      }).catch(() => {
-        // Auto-play blocked — user will need to click music button
-        this.playing = false;
-        this.updateBtn();
-        this._applyVideoAudio();
-      });
-    }
+    this.audio.play().then(() => {
+      this.playing = true;
+      this.updateBtn();
+      this._applyVideoAudio();
+    }).catch(() => {
+      this.started = false;
+      this.playing = false;
+      this.updateBtn();
+    });
   },
 
   toggle() {
+    if (!this.audio) return;
     if (this.playing) {
       this.audio.pause();
       this.playing = false;
+      this.updateBtn();
+      this._applyVideoAudio();
     } else {
-      this.audio.play();
-      this.playing = true;
+      this.start();
     }
-    this.updateBtn();
-    this._applyVideoAudio();
   },
 
   stop() {

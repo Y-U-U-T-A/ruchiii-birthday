@@ -9,7 +9,6 @@
 let currentPage = 0;
 let totalPages   = 0;
 let isFlipping   = false;
-const PAGE_FLIP_DURATION = 800;
 
 // ---- DOM refs ----
 const loadingScreen   = document.getElementById('loading-screen');
@@ -68,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function openCard() {
   // Play open sound
   SoundManager.playPageFlip();
+  MusicPlayer.start();
 
   // Animate cover away
   cardClosed.classList.add('opening');
@@ -90,8 +90,6 @@ function openCard() {
     cardOpen.classList.add('visible');
     pageNav.style.display = 'flex';
     showPage(0);
-    // Try to start music
-    MusicPlayer.start();
   }, 4000);
 }
 
@@ -117,27 +115,20 @@ function flipPage(direction) {
   // Flip out current
   currentEl.classList.remove('active');
   currentEl.classList.add(direction > 0 ? 'flipping-out' : 'flipping-in-reverse');
+  nextEl.classList.add('flipping-in');
+  nextEl.classList.add('active');
+  nextEl.style.display = 'flex';
+
+  currentPage = newPage;
+  updateNav();
 
   setTimeout(() => {
     currentEl.classList.remove('flipping-out', 'flipping-in-reverse');
     currentEl.style.display = 'none';
-
-    // Flip in next
-    currentEl.style.display = '';
-    nextEl.classList.add('flipping-in');
-    nextEl.classList.add('active');
-    nextEl.style.display = 'flex';
-
-    currentPage = newPage;
-    updateNav();
-
-    setTimeout(() => {
-      nextEl.classList.remove('flipping-in');
-      isFlipping = false;
-      // Trigger page-specific effects
-      onPageEnter(currentPage);
-    }, PAGE_FLIP_DURATION);
-  }, PAGE_FLIP_DURATION);
+    nextEl.classList.remove('flipping-in');
+    isFlipping = false;
+    onPageEnter(currentPage);
+  }, 700);
 }
 
 function showPage(index) {
@@ -174,16 +165,15 @@ function onPageEnter(pageIndex) {
 
   // Auto-play video pages
   if (isVideoPage) {
-    MusicPlayer.stop();
     const activePage = document.getElementById(id);
     if (activePage) {
       const vid = activePage.querySelector('.card-video-player');
       if (vid) {
-        // Let the active memory video provide its own audio.
-        vid.muted = false;
+        // Respect music toggle: mute video if music is on
+        vid.muted = true;
         const playVideo = () => {
           vid.currentTime = 0;
-          vid.muted = false;
+          vid.muted = MusicPlayer.playing;
           return vid.play().catch(() => {
             // Autoplay blocked — play muted as fallback
             vid.muted = true;
@@ -252,7 +242,7 @@ function addExtraVideoPages() {
     const page = document.createElement('div');
     page.className = 'card-page video-page';
     page.id = `page-extra-video-${index + 1}`;
-    page.innerHTML = `<video class="card-video-player" src="assets/videos/${file}" loop playsinline controls preload="auto"></video><div class="video-caption-bar"><span class="vc-emoji">🎥✨</span>Another beautiful memory, saved forever 💖</div>`;
+    page.innerHTML = `<video class="card-video-player" src="assets/videos/${file}" loop muted playsinline controls preload="auto"></video><div class="video-caption-bar"><span class="vc-emoji">🎥✨</span>Another beautiful memory, saved forever 💖</div>`;
     container.appendChild(page);
   });
 }

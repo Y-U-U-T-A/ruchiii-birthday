@@ -161,9 +161,232 @@
       .memories-grid  { grid-template-columns: 1fr !important; }
       .reasons-grid   { grid-template-columns: 1fr !important; }
     }
+
+    .story-landing {
+      position: relative;
+      padding: 80px 20px 40px;
+      background:
+        radial-gradient(circle at top, rgba(255, 214, 226, 0.9), transparent 38%),
+        linear-gradient(180deg, #fff6fa 0%, #fff2f7 25%, #fff9fb 100%);
+      min-height: 100vh;
+    }
+
+    .story-topbar {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255, 114, 162, 0.18);
+      backdrop-filter: blur(12px);
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(250, 107, 171, 0.12);
+    }
+
+    .story-brand {
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-family: var(--font-title);
+      color: #d94b87;
+      letter-spacing: 0.04em;
+    }
+
+    .story-audio-toggle {
+      border: none;
+      background: linear-gradient(135deg, #ff7db0, #ffb0cc);
+      color: white;
+      border-radius: 999px;
+      padding: 0.8rem 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 12px 25px rgba(255, 124, 177, 0.35);
+    }
+
+    .story-hero {
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      text-align: center;
+    }
+
+    .story-badge {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: #ffe5f0;
+      color: #d12d72;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .story-hero h1 {
+      font-size: clamp(2.8rem, 7vw, 7rem);
+      line-height: 0.96;
+      margin: 0 auto 18px;
+      max-width: 900px;
+      color: #3d2230;
+      font-family: var(--font-title);
+    }
+
+    .story-hero p {
+      color: #7d4d5f;
+      max-width: 740px;
+      margin: 0 auto;
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      line-height: 1.7;
+      font-family: var(--font-hand);
+    }
+
+    .story-deck {
+      position: relative;
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+      padding-bottom: 140px;
+    }
+
+    .story-card {
+      position: sticky;
+      top: 90px;
+      min-height: 560px;
+      width: 100%;
+      border-radius: 42px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 189, 213, 0.8);
+      box-shadow: 0 30px 70px rgba(218, 121, 169, 0.18);
+      transition: transform 0.35s ease, filter 0.35s ease;
+      background: white;
+      display: flex;
+      align-items: stretch;
+      transform-origin: top center;
+    }
+
+    .story-card.pink { background: linear-gradient(135deg, #fff7fb, #ffeaf4); }
+    .story-card.baby-pink { background: linear-gradient(135deg, #fffdfd, #ffe8f2); }
+    .story-card.blush { background: linear-gradient(135deg, #fff2f6, #ffe7ef); }
+    .story-card.rose { background: linear-gradient(135deg, #fff0f8, #ffdfe9); }
+    .story-card.lilac { background: linear-gradient(135deg, #fff9ff, #f8eaff); }
+
+    .story-card-inner {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      width: 100%;
+      min-height: 100%;
+    }
+
+    .story-card-copy {
+      padding: clamp(28px, 3vw, 52px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .story-card-copy .meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #d83d7d;
+      font-size: 0.76rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .story-card-copy h3 {
+      margin: 0 0 18px;
+      font-size: clamp(2.1rem, 4vw, 4rem);
+      line-height: 1.1;
+      color: #30202b;
+      font-family: var(--font-title);
+    }
+
+    .story-card-copy p {
+      margin: 0;
+      font-size: clamp(1rem, 1.5vw, 1.4rem);
+      color: #5d4857;
+      line-height: 1.7;
+      font-family: var(--font-hand);
+    }
+
+    .story-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .story-card-tags span {
+      background: rgba(255, 255, 255, 0.8);
+      color: #b6427d;
+      border: 1px solid rgba(255, 150, 190, 0.4);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .story-card-visual {
+      position: relative;
+      min-height: 100%;
+      background: linear-gradient(135deg, #ffdfe7, #f9d9ef);
+    }
+
+    .story-card-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .story-card-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+      pointer-events: none;
+    }
+
+    @media (max-width: 760px) {
+      .story-card-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .story-card {
+        min-height: 620px;
+      }
+
+      .story-card-visual {
+        min-height: 300px;
+      }
+
+      .story-topbar {
+        border-radius: 26px;
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 <body>
+
+<section class="story-landing" id="story-landing">
+  <div class="story-topbar">
+    <button id="story-audio-toggle" class="story-audio-toggle" type="button">🎵 Song On</button>
+  </div>
+
+  <div class="story-hero">
+    <h1>Every smile, every moment, every little miracle.</h1>
+    <p>From the first hello to every unforgettable chapter, this whole story is wrapped in pink, laughter, love, and the magic of you.</p>
+  </div>
+
+  <div class="story-deck" id="story-deck"></div>
+</section>
 
 <!-- ╔══════════════════════════════════════════════╗ -->
 <!-- ║            LOADING SCREEN                   ║ -->
@@ -825,7 +1048,7 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
         <div class="card-page video-page" id="page-v1">
           <video class="card-video-player" id="vid-pool"
                  src="assets/videos/In the pool.mp4"
-               loop muted playsinline controls preload="auto"></video>
+               loop muted playsinline controls preload="none"></video>
           <div class="video-caption-bar">
             <span class="vc-emoji">🏊‍♀️✨</span>
             Splashing good memories — look at you having a blast! 💦
@@ -838,7 +1061,7 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
         <div class="card-page video-page" id="page-v2">
           <video class="card-video-player" id="vid-2"
                  src="assets/videos/VID-20260124-WA0115.mp4"
-               loop muted playsinline controls preload="auto"></video>
+               loop muted playsinline controls preload="none"></video>
           <div class="video-caption-bar">
             <span class="vc-emoji">🎬💖</span>
             A little moment frozen in time, just for you 🌸
@@ -851,7 +1074,7 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
         <div class="card-page video-page" id="page-v3">
           <video class="card-video-player" id="vid-3"
                  src="assets/videos/VID-20260124-WA0176.mp4"
-               loop muted playsinline controls preload="auto"></video>
+               loop muted playsinline controls preload="none"></video>
           <div class="video-caption-bar">
             <span class="vc-emoji">🌟😍</span>
             Every frame of you is a masterpiece 📸
@@ -864,7 +1087,7 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
         <div class="card-page video-page" id="page-v4">
           <video class="card-video-player" id="vid-4"
                  src="assets/videos/VID-20260125-WA0040.mp4"
-               loop muted playsinline controls preload="auto"></video>
+               loop muted playsinline controls preload="none"></video>
           <div class="video-caption-bar">
             <span class="vc-emoji">🦋💕</span>
             You light up every place you walk into ✨
@@ -877,7 +1100,7 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
         <div class="card-page video-page" id="page-v5">
           <video class="card-video-player" id="vid-5"
                  src="assets/videos/VID-20260125-WA0047.mp4"
-               loop muted playsinline controls preload="auto"></video>
+               loop muted playsinline controls preload="none"></video>
           <div class="video-caption-bar">
             <span class="vc-emoji">🎉💃</span>
             The life of every party — that's you! 🥳
@@ -890,7 +1113,7 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
         <div class="card-page video-page" id="page-v6">
           <video class="card-video-player" id="vid-6"
                  src="assets/videos/VID-20260125-WA0049.mp4"
-               loop muted playsinline controls preload="auto"></video>
+               loop muted playsinline controls preload="none"></video>
           <div class="video-caption-bar">
             <span class="vc-emoji">🌸❤️</span>
             Precious, precious you — never change! 💖
@@ -903,7 +1126,7 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
         <div class="card-page video-page" id="page-v7">
           <video class="card-video-player" id="vid-7"
                  src="assets/videos/VID-20260125-WA0050.mp4"
-               loop muted playsinline controls preload="auto"></video>
+               loop muted playsinline controls preload="none"></video>
           <div class="video-caption-bar">
             <span class="vc-emoji">😊🌼</span>
             That smile though… it could end wars! 🌟
@@ -916,7 +1139,7 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
         <div class="card-page video-page" id="page-v8">
           <video class="card-video-player" id="vid-8"
                  src="assets/videos/VID-20260125-WA0399.mp4"
-               loop muted playsinline controls preload="auto"></video>
+               loop muted playsinline controls preload="none"></video>
           <div class="video-caption-bar">
             <span class="vc-emoji">💫🎀</span>
             Saving the best moments for last 🎂
@@ -949,6 +1172,114 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
 <script src="js/animations.js"></script>
 <script src="js/card.js"></script>
 <script src="js/interactions.js"></script>
+<script>
+  const storyEntries = [
+    { badge: '01', title: 'First Hello', text: 'The very first hello that started a beautiful kind of magic.', image: 'assets/images/WhatsApp Image 2026-06-18 at 1.55.33 PM.jpeg', accent: 'pink', tags: ['hello', 'smile', 'spark'] },
+    { badge: '02', title: 'Pink Morning', text: 'Even ordinary mornings felt softer and brighter with you in them.', image: 'assets/images/WhatsApp Image 2026-06-18 at 1.55.34 PM.jpeg', accent: 'baby-pink', tags: ['morning', 'warmth', 'love'] },
+    { badge: '03', title: 'Best Friends', text: 'Best-friend energy from the very start and still glowing every day.', image: 'assets/images/WhatsApp Image 2026-06-16 at 10.24.38 PM.jpeg', accent: 'blush', tags: ['friendship', 'laughter', 'joy'] },
+    { badge: '04', title: 'Together Always', text: 'Every moment was better because it was shared with you.', image: 'assets/images/WhatsApp Image 2026-06-16 at 10.24.38 PM (1).jpeg', accent: 'rose', tags: ['together', 'fun', 'happy'] },
+    { badge: '05', title: 'Birthday Vibes', text: 'The best celebrations happen with the best people around.', image: 'assets/images/WhatsApp Image 2026-06-16 at 10.24.38 PM (2).jpeg', accent: 'pink', tags: ['party', 'cake', 'happiness'] },
+    { badge: '06', title: 'Warm Glow', text: 'Your presence made every room feel softer, brighter, and kinder.', image: 'assets/images/WhatsApp Image 2026-06-16 at 10.24.39 PM.jpeg', accent: 'lilac', tags: ['light', 'care', 'peace'] },
+    { badge: '07', title: 'Golden Laugh', text: 'That laugh was the kind that made memories feel like sunshine.', image: 'assets/images/WhatsApp Image 2026-06-16 at 10.24.39 PM (1).jpeg', accent: 'baby-pink', tags: ['laugh', 'sunshine', 'heart'] },
+    { badge: '08', title: 'Little Adventures', text: 'Even the simplest walks turned into the sweetest memories.', image: 'assets/images/WhatsApp Image 2026-06-16 at 10.24.40 PM.jpeg', accent: 'rose', tags: ['walk', 'dreams', 'side by side'] },
+    { badge: '09', title: 'Late Night Talks', text: 'Late-night conversations held the deepest feelings and gentlest laughter.', image: 'assets/images/WhatsApp Image 2026-06-16 at 10.24.40 PM (1).jpeg', accent: 'pink', tags: ['night', 'honest', 'close'] },
+    { badge: '10', title: 'Unspoken Magic', text: 'Some moments don’t need words because they glow on their own.', image: 'assets/images/WhatsApp Image 2026-06-16 at 10.24.41 PM.jpeg', accent: 'blush', tags: ['magic', 'quiet', 'love'] },
+    { badge: '11', title: 'Always Beautiful', text: 'You have a way of making everything feel beautiful, even the ordinary.', image: 'assets/images/WhatsApp Image 2026-06-16 at 10.24.41 PM (1).jpeg', accent: 'lilac', tags: ['beauty', 'grace', 'sparkle'] },
+    { badge: '12', title: 'Tiny Details', text: 'It was always the little things that made the biggest difference.', image: 'assets/images/WhatsApp Image 2026-06-16 at 10.24.42 PM.jpeg', accent: 'baby-pink', tags: ['details', 'care', 'love'] },
+    { badge: '13', title: 'Softest Smile', text: 'That smile could change the mood of a whole day in seconds.', image: 'assets/images/WhatsApp Image 2026-06-18 at 1.55.33 PM (1).jpeg', accent: 'rose', tags: ['smile', 'joy', 'radiance'] },
+    { badge: '14', title: 'Forever Sweet', text: 'Sweetness, warmth, and love wrapped in one person.', image: 'assets/images/WhatsApp Image 2026-06-18 at 1.55.33 PM (2).jpeg', accent: 'pink', tags: ['sweetness', 'kindness', 'heart'] },
+    { badge: '15', title: 'One Look', text: 'One look and the whole world felt smaller and kinder.', image: 'assets/images/WhatsApp Image 2026-06-18 at 1.55.34 PM (1).jpeg', accent: 'blush', tags: ['glance', 'magic', 'heart'] },
+    { badge: '16', title: 'Daydreams', text: 'You made even the dreamiest thoughts feel close and real.', image: 'assets/images/WhatsApp Image 2026-06-18 at 1.55.34 PM.jpeg', accent: 'lilac', tags: ['dreams', 'hope', 'wonder'] },
+    { badge: '17', title: 'Sweetest Chaos', text: 'The cutest chaos, the happiest memories, and the gentlest love.', image: 'assets/images/WhatsApp Image 2026-06-18 at 1.55.35 PM.jpeg', accent: 'baby-pink', tags: ['chaos', 'cute', 'love'] },
+    { badge: '18', title: 'Tiny Wonders', text: 'Every little thing with you became part of a bigger beautiful story.', image: 'assets/images/IMG-20251110-WA0040.jpg', accent: 'rose', tags: ['wonder', 'story', 'little things'] },
+    { badge: '19', title: 'Sunshine Energy', text: 'You radiate warmth and happiness everywhere you go.', image: 'assets/images/IMG-20251110-WA0041.jpg', accent: 'pink', tags: ['sunshine', 'energy', 'happy'] },
+    { badge: '20', title: 'Dreamer', text: 'The way you see life is what makes you so special.', image: 'assets/images/IMG-20251110-WA0044.jpg', accent: 'blush', tags: ['dreamer', 'imagination', 'beauty'] },
+    { badge: '21', title: 'Precious Heart', text: 'Your heart is gentle, warm, and unforgettable.', image: 'assets/images/IMG-20251110-WA0048.jpg', accent: 'lilac', tags: ['heart', 'gentle', 'precious'] },
+    { badge: '22', title: 'Golden Glow', text: 'There is a soft golden light that follows you around.', image: 'assets/images/IMG-20260123-WA0485.jpg', accent: 'baby-pink', tags: ['glow', 'light', 'love'] },
+    { badge: '23', title: 'My Favorite Place', text: 'Being around you feels like the most beautiful kind of home.', image: 'assets/images/IMG-20260124-WA0072.jpg', accent: 'rose', tags: ['home', 'safe', 'happy'] },
+    { badge: '24', title: 'The Best Part', text: 'The best part of every memory is that you were in it.', image: 'assets/images/IMG-20260204-WA0697.jpg', accent: 'pink', tags: ['favorite', 'memory', 'special'] },
+    { badge: '25', title: 'Stay Like This', text: 'Stay this kind, this bright, and this beautiful always.', image: 'assets/images/IMG-20260204-WA0711.jpg', accent: 'blush', tags: ['stay', 'kind', 'beautiful'] },
+    { badge: '26', title: 'Sweetest Kindness', text: 'You carry kindness so effortlessly that it shines in everything.', image: 'assets/images/IMG-20260204-WA0801.jpg', accent: 'lilac', tags: ['kindness', 'gentle', 'shine'] },
+    { badge: '27', title: 'In Every Frame', text: 'Every photo, every still, and every memory feels brighter with you in it.', image: 'assets/images/2026-01-02_b~EiASFUFLVjZ2VkxOSXpZUFdNUE96bGtpMTIBD0gJUARgAQ.jpg', accent: 'baby-pink', tags: ['frame', 'photo', 'memory'] },
+    { badge: '28', title: 'Candid Joy', text: 'The most beautiful moments are the ones you never planned.', image: 'assets/images/2026-02-04_b~EiASFVdyY2pBSzlDOXR5ekt0bUltdVlZVjIBCEgDUARgAQ.jpg', accent: 'rose', tags: ['candid', 'joy', 'spontaneous'] },
+    { badge: '29', title: 'Always My Favorite', text: 'You are the favorite part of every story and every good memory.', image: 'assets/images/2025-12-04_b~EiASFU9FcFh1WElFS3ZFREpWOFIwM2E0QzIBD0gDUARgAQ.mp4', accent: 'pink', tags: ['favorite', 'story', 'love'] },
+    { badge: '30', title: 'Softest Rhythm', text: 'Your presence makes life feel smoother, gentler, and more magical.', image: 'assets/images/IMG-20251014-WA0008.jpg', accent: 'blush', tags: ['rhythm', 'gentle', 'magic'] },
+    { badge: '31', title: 'A Beautiful Future', text: 'The future feels brighter just thinking about all the dreams ahead.', image: 'assets/images/2026-01-02_b~EiASFUFLVjZ2VkxOSXpZUFdNUE96bGtpMTIBD0gJUARgAQ.jpg', accent: 'lilac', tags: ['future', 'dreams', 'bloom'] },
+    { badge: '32', title: 'Little Time Machine', text: 'Every memory sends me straight back to that sweet, glowing moment.', image: 'assets/images/WhatsApp Image 2026-06-18 at 1.55.35 PM.jpeg', accent: 'baby-pink', tags: ['time', 'memory', 'happy'] },
+    { badge: '33', title: 'Glow Up', text: 'You make everything look softer, brighter, and full of heart.', image: 'assets/images/WhatsApp Image 2026-06-18 at 1.55.34 PM.jpeg', accent: 'rose', tags: ['glow', 'bliss', 'heart'] },
+    { badge: '34', title: 'Words Cannot Say', text: 'No sentence can hold how beautiful and precious you are.', image: 'assets/images/WhatsApp Image 2026-06-16 at 10.24.39 PM.jpeg', accent: 'pink', tags: ['wordless', 'precious', 'love'] },
+    { badge: '35', title: 'Forever My Joy', text: 'The sweetest joy in life is the way you make everything feel safe and warm.', image: 'assets/images/WhatsApp Image 2026-06-16 at 10.24.40 PM.jpeg', accent: 'blush', tags: ['joy', 'warmth', 'safe'] },
+    { badge: '36', title: 'My Dream Girl', text: 'The kind of beautiful that feels part dream, part reality, all love.', image: 'assets/images/WhatsApp Image 2026-06-16 at 10.24.41 PM.jpeg', accent: 'lilac', tags: ['dream', 'love', 'beautiful'] },
+    { badge: '37', title: 'The Light in the Room', text: 'You are the one that changes the energy for the better without even trying.', image: 'assets/images/IMG-20251110-WA0048.jpg', accent: 'baby-pink', tags: ['light', 'energy', 'wonder'] },
+    { badge: '38', title: 'Forever Magic', text: 'This love story keeps glowing, even in the smallest moments.', image: 'assets/images/WhatsApp Image 2026-06-18 at 1.55.33 PM.jpeg', accent: 'rose', tags: ['magic', 'story', 'forever'] },
+    { badge: '39', title: 'One More Chapter', text: 'Every chapter was beautiful, and this one feels the warmest yet.', image: 'assets/images/IMG-20260124-WA0072.jpg', accent: 'pink', tags: ['chapter', 'warm', 'future'] },
+    { badge: '40', title: 'Happy Birthday Ruchii', text: 'A final little pink note to remind you: you are adored, celebrated, and deeply loved.', image: 'assets/images/WhatsApp Image 2026-06-18 at 1.55.34 PM.jpeg', accent: 'blush', tags: ['birthday', 'love', 'celebration'] }
+  ];
+
+  const storyDeck = document.getElementById('story-deck');
+
+  if (storyDeck) {
+    storyEntries.forEach((entry, index) => {
+      const card = document.createElement('article');
+      card.className = `story-card ${entry.accent}`;
+      card.innerHTML = `
+        <div class="story-card-inner">
+          <div class="story-card-copy">
+            <div class="meta">Theme ${entry.badge}</div>
+            <h3>${entry.title}</h3>
+            <p>${entry.text}</p>
+            <div class="story-card-tags">
+              ${entry.tags.map(tag => `<span>#${tag}</span>`).join('')}
+            </div>
+          </div>
+          <div class="story-card-visual">
+            <img src="${entry.image}" alt="${entry.title}" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #ffdfe7, #f9d9ef)';" />
+          </div>
+        </div>
+      `;
+      storyDeck.appendChild(card);
+    });
+
+    const storyCards = document.querySelectorAll('.story-card');
+    const applyStoryStack = () => {
+      storyCards.forEach((card, idx) => {
+        const rect = card.getBoundingClientRect();
+        if (rect.top <= 110) {
+          const scale = 1 - idx * 0.018;
+          card.style.transform = `scale(${scale})`;
+          card.style.filter = `brightness(${1 - idx * 0.04})`;
+        } else {
+          card.style.transform = 'scale(1)';
+          card.style.filter = 'brightness(1)';
+        }
+      });
+    };
+
+    window.addEventListener('scroll', applyStoryStack, { passive: true });
+    applyStoryStack();
+  }
+
+  const storyAudio = new Audio('assets/audio/WhatsApp Audio 2026-06-18 at 2.26.43 PM.mpeg');
+  storyAudio.loop = true;
+  storyAudio.volume = 0.25;
+  const storyAudioButton = document.getElementById('story-audio-toggle');
+
+  if (storyAudioButton) {
+    storyAudioButton.addEventListener('click', async () => {
+      if (storyAudio.paused) {
+        try {
+          await storyAudio.play();
+          storyAudioButton.textContent = '🔇 Song Off';
+        } catch (error) {
+          storyAudioButton.textContent = '🎵 Song On';
+        }
+      } else {
+        storyAudio.pause();
+        storyAudioButton.textContent = '🎵 Song On';
+      }
+    });
+  }
+</script>
 
 </body>
 

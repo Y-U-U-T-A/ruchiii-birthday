@@ -242,7 +242,7 @@ function addExtraVideoPages() {
     const page = document.createElement('div');
     page.className = 'card-page video-page';
     page.id = `page-extra-video-${index + 1}`;
-    page.innerHTML = `<video class="card-video-player" src="assets/videos/${file}" loop muted playsinline controls preload="auto"></video><div class="video-caption-bar"><span class="vc-emoji">🎥✨</span>Another beautiful memory, saved forever 💖</div>`;
+    page.innerHTML = `<video class="card-video-player" src="assets/videos/${file}" loop muted playsinline controls preload="none"></video><div class="video-caption-bar"><span class="vc-emoji">🎥✨</span>Another beautiful memory, saved forever 💖</div>`;
     container.appendChild(page);
   });
 }

@@ -58,7 +58,8 @@ body {
     radial-gradient(circle at 50% 50%, rgba(255,203,164,0.15) 0%, transparent 70%);
   font-family: var(--font-hand);
   color: var(--color-ink);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   user-select: none;
 }
 
@@ -293,6 +294,7 @@ body.video-mode .photo-placeholder {
   perspective: 2400px;
   height: 100%;
   transform-style: preserve-3d;
+  contain: layout paint;
 }
 
 .card-page {
@@ -303,7 +305,7 @@ body.video-mode .photo-placeholder {
   display: none;
   transform-origin: left center;
   backface-visibility: hidden;
-  will-change: transform, opacity, box-shadow;
+  will-change: transform, opacity;
   height: 100%;
   box-shadow: none;
   transition: none;
@@ -325,7 +327,7 @@ body.video-mode .photo-placeholder {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  animation: pageFlipOut 700ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: pageFlipOut 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
   z-index: 1;
 }
 
@@ -334,7 +336,7 @@ body.video-mode .photo-placeholder {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  animation: pageFlipIn 700ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: pageFlipIn 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
   z-index: 3;
 }
 

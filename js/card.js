@@ -163,17 +163,18 @@ function onPageEnter(pageIndex) {
   const isVideoPage = id && (id.startsWith('page-v') || id.startsWith('page-extra-video'));
   document.body.classList.toggle('video-mode', pageIndex >= 12);
 
+  if (id !== 'page-v1') PoolVideoAudio.setEnabled(false);
+
   // Auto-play video pages
   if (isVideoPage) {
     const activePage = document.getElementById(id);
     if (activePage) {
       const vid = activePage.querySelector('.card-video-player');
       if (vid) {
-        // Respect music toggle: mute video if music is on
-        vid.muted = true;
+        vid.muted = id === 'page-v1' && PoolVideoAudio.enabled ? false : true;
         const playVideo = () => {
           vid.currentTime = 0;
-          vid.muted = MusicPlayer.playing;
+          vid.muted = id === 'page-v1' && PoolVideoAudio.enabled ? false : true;
           return vid.play().catch(() => {
             // Autoplay blocked — play muted as fallback
             vid.muted = true;

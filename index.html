@@ -371,15 +371,125 @@
         flex-direction: column;
       }
     }
+
+    .password-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: linear-gradient(135deg, #ffe6f0, #fff8fb 55%, #f8eaff);
+    }
+
+    .password-card {
+      width: min(420px, 100%);
+      padding: 36px 30px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(255, 114, 162, 0.3);
+      border-radius: 24px;
+      box-shadow: 0 24px 70px rgba(205, 91, 137, 0.2);
+    }
+
+    .password-mark {
+      font-size: 2.6rem;
+      margin-bottom: 8px;
+    }
+
+    .password-card h2 {
+      margin: 0 0 8px;
+      color: #3d2230;
+      font-family: var(--font-title);
+      font-size: 2rem;
+    }
+
+    .password-card p {
+      margin: 0 0 22px;
+      color: #7d4d5f;
+      font-family: var(--font-hand);
+      font-size: 1.15rem;
+    }
+
+    #password-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    #site-password {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px 16px;
+      border: 1px solid #f2a4c0;
+      border-radius: 12px;
+      outline: none;
+      color: #3d2230;
+      font: 1rem var(--font-hand);
+      background: #fffafd;
+    }
+
+    #site-password:focus {
+      border-color: #d94b87;
+      box-shadow: 0 0 0 3px rgba(217, 75, 135, 0.14);
+    }
+
+    #password-form button {
+      border: 0;
+      border-radius: 12px;
+      padding: 13px 16px;
+      cursor: pointer;
+      color: #fff;
+      background: linear-gradient(135deg, #e85c98, #ff9ec2);
+      font: 700 1rem var(--font-hand);
+    }
+
+    .password-error {
+      min-height: 1.2em;
+      color: #c42d61;
+      font: 0.95rem var(--font-hand);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .pool-sound-toggle {
+      align-self: center;
+      border: 1px solid rgba(209, 45, 114, 0.35);
+      border-radius: 999px;
+      padding: 9px 16px;
+      cursor: pointer;
+      color: #a32961;
+      background: rgba(255, 255, 255, 0.88);
+      font: 700 0.95rem var(--font-hand);
+    }
   </style>
 </head>
 <body>
 
-<section class="story-landing" id="story-landing">
-  <div class="story-topbar">
-    <button id="story-audio-toggle" class="story-audio-toggle" type="button">🎵 Song On</button>
+<div id="password-gate" class="password-gate" role="dialog" aria-modal="true" aria-labelledby="password-title">
+  <div class="password-card">
+    <div class="password-mark">💌</div>
+    <h2 id="password-title">A little surprise</h2>
+    <p>Enter the password to open your birthday story.</p>
+    <form id="password-form">
+      <label class="sr-only" for="site-password">Password</label>
+      <input id="site-password" type="password" autocomplete="off" placeholder="Password" required />
+      <button type="submit">Open the story</button>
+      <div id="password-error" class="password-error" role="alert" aria-live="polite"></div>
+    </form>
   </div>
+</div>
 
+<section class="story-landing" id="story-landing">
   <div class="story-hero">
     <h1>Every smile, every moment, every little miracle.</h1>
     <p>From the first hello to every unforgettable chapter, this whole story is wrapped in pink, laughter, love, and the magic of you.</p>
@@ -1049,6 +1159,7 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
           <video class="card-video-player" id="vid-pool"
                  src="assets/videos/In the pool.mp4"
                loop muted playsinline controls preload="none"></video>
+          <button id="pool-sound-toggle" class="pool-sound-toggle" type="button">🔇 Pool sound off</button>
           <div class="video-caption-bar">
             <span class="vc-emoji">🏊‍♀️✨</span>
             Splashing good memories — look at you having a blast! 💦
@@ -1202,7 +1313,7 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
     { badge: '26', title: 'Sweetest Kindness', text: 'You carry kindness so effortlessly that it shines in everything.', image: 'assets/images/IMG-20260204-WA0801.jpg', accent: 'lilac', tags: ['kindness', 'gentle', 'shine'] },
     { badge: '27', title: 'In Every Frame', text: 'Every photo, every still, and every memory feels brighter with you in it.', image: 'assets/images/2026-01-02_b~EiASFUFLVjZ2VkxOSXpZUFdNUE96bGtpMTIBD0gJUARgAQ.jpg', accent: 'baby-pink', tags: ['frame', 'photo', 'memory'] },
     { badge: '28', title: 'Candid Joy', text: 'The most beautiful moments are the ones you never planned.', image: 'assets/images/2026-02-04_b~EiASFVdyY2pBSzlDOXR5ekt0bUltdVlZVjIBCEgDUARgAQ.jpg', accent: 'rose', tags: ['candid', 'joy', 'spontaneous'] },
-    { badge: '29', title: 'Always My Favorite', text: 'You are the favorite part of every story and every good memory.', image: 'assets/images/2025-12-04_b~EiASFU9FcFh1WElFS3ZFREpWOFIwM2E0QzIBD0gDUARgAQ.mp4', accent: 'pink', tags: ['favorite', 'story', 'love'] },
+    { badge: '29', title: 'Always My Favorite', text: 'You are the favorite part of every story and every good memory.', image: 'assets/images/IMG-20250929-WA0082.jpg', accent: 'pink', tags: ['favorite', 'story', 'love'] },
     { badge: '30', title: 'Softest Rhythm', text: 'Your presence makes life feel smoother, gentler, and more magical.', image: 'assets/images/IMG-20251014-WA0008.jpg', accent: 'blush', tags: ['rhythm', 'gentle', 'magic'] },
     { badge: '31', title: 'A Beautiful Future', text: 'The future feels brighter just thinking about all the dreams ahead.', image: 'assets/images/2026-01-02_b~EiASFUFLVjZ2VkxOSXpZUFdNUE96bGtpMTIBD0gJUARgAQ.jpg', accent: 'lilac', tags: ['future', 'dreams', 'bloom'] },
     { badge: '32', title: 'Little Time Machine', text: 'Every memory sends me straight back to that sweet, glowing moment.', image: 'assets/images/WhatsApp Image 2026-06-18 at 1.55.35 PM.jpeg', accent: 'baby-pink', tags: ['time', 'memory', 'happy'] },
@@ -1216,16 +1327,94 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
     { badge: '40', title: 'Happy Birthday Ruchii', text: 'A final little pink note to remind you: you are adored, celebrated, and deeply loved.', image: 'assets/images/WhatsApp Image 2026-06-18 at 1.55.34 PM.jpeg', accent: 'blush', tags: ['birthday', 'love', 'celebration'] }
   ];
 
+  const additionalStoryImages = [
+    '2026-01-02_b~EiASFUFLVjZ2VkxOSXpZUFdNUE96bGtpMTIBD0gJUARgAQ.jpg',
+    '2026-02-04_b~EiASFVdyY2pBSzlDOXR5ekt0bUltdVlZVjIBCEgDUARgAQ.jpg',
+    'IMG-20250929-WA0082.jpg',
+    'IMG-20250929-WA0144.jpg',
+    'IMG-20251004-WA0196.jpg',
+    'IMG-20251014-WA0008.jpg',
+    'IMG-20251028-WA0025.jpeg',
+    'IMG-20251110-WA0040.jpg',
+    'IMG-20251110-WA0041.jpg',
+    'IMG-20251110-WA0044.jpg',
+    'IMG-20251110-WA0048.jpg',
+    'IMG-20251115-WA0041.jpg',
+    'IMG-20251119-WA0006.jpg',
+    'IMG-20251120-WA0032.jpg',
+    'IMG-20251123-WA0066.jpg',
+    'IMG-20251220-WA0010.jpg',
+    'IMG-20251220-WA0041.jpg',
+    'IMG-20251223-WA0007.jpg',
+    'IMG-20251223-WA0016.jpg',
+    'IMG-20260103-WA0001.jpg',
+    'IMG-20260123-WA0483.jpg',
+    'IMG-20260123-WA0485.jpg',
+    'IMG-20260124-WA0067.jpg',
+    'IMG-20260124-WA0069.jpg',
+    'IMG-20260124-WA0072.jpg',
+    'IMG-20260129-WA0021.jpg',
+    'IMG-20260204-WA0697.jpg',
+    'IMG-20260204-WA0711.jpg',
+    'IMG-20260204-WA0801.jpg',
+    'IMG-20260205-WA0001.jpg',
+    'IMG-20260419-WA0004.jpg',
+    'IMG-20260419-WA0006.jpg',
+    'IMG-20260528-WA0009.jpg',
+    'IMG-20260620-WA0006 (1).jpg',
+    'IMG-20260625-WA0040.jpg',
+    'IMG-20260625-WA0063.jpg',
+    'IMG-20260625-WA0068.jpg',
+    'IMG-20260704-WA0003.jpg',
+    'IMG-20260709-WA0233.jpg',
+    'IMG-20260711-WA0033.jpg',
+    'IMG-20260803-WA0304.jpg',
+    'IMG-20260910-WA0010.jpg',
+    'IMG-20260915-WA0010.jpg',
+    'IMG20260123173416.jpg',
+    'IMG_20251109_062014628.jpg',
+    'IMG_20260911_120039.jpg',
+    'signal-2026-06-14-23-31-02-419.jpg',
+    'WhatsApp Image 2026-06-16 at 10.24.38 PM (1).jpeg',
+    'WhatsApp Image 2026-06-16 at 10.24.38 PM (2).jpeg',
+    'WhatsApp Image 2026-06-16 at 10.24.38 PM.jpeg',
+    'WhatsApp Image 2026-06-16 at 10.24.39 PM (1).jpeg',
+    'WhatsApp Image 2026-06-16 at 10.24.39 PM.jpeg',
+    'WhatsApp Image 2026-06-16 at 10.24.40 PM (1).jpeg',
+    'WhatsApp Image 2026-06-16 at 10.24.40 PM.jpeg',
+    'WhatsApp Image 2026-06-16 at 10.24.41 PM (1).jpeg',
+    'WhatsApp Image 2026-06-16 at 10.24.41 PM.jpeg',
+    'WhatsApp Image 2026-06-16 at 10.24.42 PM.jpeg',
+    'WhatsApp Image 2026-06-18 at 1.55.33 PM (1).jpeg',
+    'WhatsApp Image 2026-06-18 at 1.55.33 PM (2).jpeg',
+    'WhatsApp Image 2026-06-18 at 1.55.33 PM.jpeg',
+    'WhatsApp Image 2026-06-18 at 1.55.34 PM (1).jpeg',
+    'WhatsApp Image 2026-06-18 at 1.55.34 PM.jpeg',
+    'WhatsApp Image 2026-06-18 at 1.55.35 PM.jpeg'
+  ];
+
+  const allStoryEntries = storyEntries.concat(additionalStoryImages.map((image, index) => ({
+    title: `A Beautiful Memory ${index + 1}`,
+    text: 'A beautiful moment worth keeping close forever.',
+    image: `assets/images/${image}`,
+    accent: ['pink', 'baby-pink', 'blush', 'rose', 'lilac'][index % 5],
+    tags: ['memory', 'love', 'forever']
+  })));
+
   const storyDeck = document.getElementById('story-deck');
 
   if (storyDeck) {
-    storyEntries.forEach((entry, index) => {
+    const usedImages = new Set();
+    allStoryEntries.filter(entry => {
+      if (usedImages.has(entry.image)) return false;
+      usedImages.add(entry.image);
+      return true;
+    }).forEach((entry) => {
       const card = document.createElement('article');
       card.className = `story-card ${entry.accent}`;
       card.innerHTML = `
         <div class="story-card-inner">
           <div class="story-card-copy">
-            <div class="meta">Theme ${entry.badge}</div>
             <h3>${entry.title}</h3>
             <p>${entry.text}</p>
             <div class="story-card-tags">
@@ -1259,26 +1448,23 @@ Again, happy birthday to you! I am dying to see you, Ruchii. Happiest Birthday!"
     applyStoryStack();
   }
 
-  const storyAudio = new Audio('assets/audio/WhatsApp Audio 2026-06-18 at 2.26.43 PM.mpeg');
-  storyAudio.loop = true;
-  storyAudio.volume = 0.25;
-  const storyAudioButton = document.getElementById('story-audio-toggle');
+  const passwordGate = document.getElementById('password-gate');
+  const passwordForm = document.getElementById('password-form');
+  const passwordInput = document.getElementById('site-password');
+  const passwordError = document.getElementById('password-error');
 
-  if (storyAudioButton) {
-    storyAudioButton.addEventListener('click', async () => {
-      if (storyAudio.paused) {
-        try {
-          await storyAudio.play();
-          storyAudioButton.textContent = '🔇 Song Off';
-        } catch (error) {
-          storyAudioButton.textContent = '🎵 Song On';
-        }
-      } else {
-        storyAudio.pause();
-        storyAudioButton.textContent = '🎵 Song On';
-      }
-    });
-  }
+  passwordInput.focus();
+  passwordForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (passwordInput.value === 'kid') {
+      passwordGate.remove();
+      document.body.classList.add('story-unlocked');
+    } else {
+      passwordError.textContent = 'That password is not correct. Try again.';
+      passwordInput.select();
+    }
+  });
+
 </script>
 
 </body>

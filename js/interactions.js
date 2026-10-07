@@ -9,6 +9,38 @@
 // ============================================================
 // MUSIC PLAYER
 // ============================================================
+const PoolVideoAudio = {
+  enabled: false,
+
+  init() {
+    const button = document.getElementById('pool-sound-toggle');
+    if (button) button.addEventListener('click', () => this.toggle());
+    this.setEnabled(false);
+  },
+
+  setEnabled(enabled) {
+    this.enabled = enabled;
+    const video = document.getElementById('vid-pool');
+    const button = document.getElementById('pool-sound-toggle');
+    if (video) video.muted = !enabled;
+    if (button) button.textContent = enabled ? '🔊 Pool sound on' : '🔇 Pool sound off';
+  },
+
+  toggle() {
+    const video = document.getElementById('vid-pool');
+    if (!video) return;
+
+    if (!this.enabled && MusicPlayer.playing) {
+      MusicPlayer.audio.pause();
+      MusicPlayer.playing = false;
+      MusicPlayer.updateBtn();
+    }
+
+    this.setEnabled(!this.enabled);
+    if (this.enabled) video.play().catch(() => {});
+  }
+};
+
 const MusicPlayer = {
   audio: null,
   playing: false,
@@ -28,14 +60,13 @@ const MusicPlayer = {
       btn.addEventListener('click', () => this.toggle());
     }
 
-    // When music is OFF, let the background video play its audio instead
     this._syncVideoAudio();
+    PoolVideoAudio.init();
   },
 
   _syncVideoAudio() {
     const bgVideo = document.getElementById('bg-video');
     if (!bgVideo) return;
-    // Start muted; will be unmuted when music is off
     bgVideo.muted = true;
   },
 
@@ -72,22 +103,12 @@ const MusicPlayer = {
     this.updateBtn();
   },
 
-  // When music is ON → mute video audio; when music is OFF → unmute video so its sound plays
   _applyVideoAudio() {
-    // Sync the background card video
     const bgVideo = document.getElementById('bg-video');
-    if (bgVideo) {
-      bgVideo.muted = this.playing;
-      if (!this.playing) bgVideo.play().catch(() => {});
-    }
-    // Sync any active video page player
-    const activePage = document.querySelector('.card-page.active');
-    if (activePage) {
-      const vid = activePage.querySelector('.card-video-player');
-      if (vid && !vid.paused) {
-        vid.muted = this.playing;
-      }
-    }
+    if (bgVideo) bgVideo.muted = true;
+    document.querySelectorAll('.card-video-player').forEach(video => {
+      video.muted = video.id === 'vid-pool' && PoolVideoAudio.enabled ? false : true;
+    });
   },
 
   updateBtn() {
